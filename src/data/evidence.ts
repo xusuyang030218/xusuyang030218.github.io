@@ -41,7 +41,7 @@ export interface ProjectEvidence {
     videoMp4?: string;
     caption: string;
     transcript: string[];
-  };
+  }[];
 }
 
 export const evidenceBySlug: Record<string, ProjectEvidence> = {
@@ -66,13 +66,15 @@ export const evidenceBySlug: Record<string, ProjectEvidence> = {
         note: '原逻辑要求所有末级列都配置宽度才切换为自适应，导致单列自定义宽度不生效。修正为任意有效业务列配置宽度即触发。选择器中的业务容器标识已脱敏。'
       }
     ],
-    media: {
-      poster: '/evidence/dts-evidence.webp',
-      videoWebm: '/media/portfolio-evidence-tour.webm',
-      videoMp4: '/media/portfolio-evidence-tour.mp4',
-      caption: '完整作品站证据导览：从项目归档进入 DTS、NexusAgent 与公开代码卷宗。',
-      transcript: ['展示个人 Git 提交时间线。', '放大问题 81 的列宽条件 diff。', '说明企业源码、客户信息和内网地址不对外公开。']
-    }
+    media: [
+      {
+        poster: '/evidence/dts-evidence.webp',
+        videoWebm: '/media/portfolio-evidence-tour.webm',
+        videoMp4: '/media/portfolio-evidence-tour.mp4',
+        caption: '完整作品站证据导览：从项目归档进入 DTS、NexusAgent 与公开代码卷宗。',
+        transcript: ['展示个人 Git 提交时间线。', '放大问题 81 的列宽条件 diff。', '说明企业源码、客户信息和内网地址不对外公开。']
+      }
+    ]
   },
   'nexus-agent': {
     verification: '本地可追溯 / 企业脱敏',
@@ -93,11 +95,13 @@ export const evidenceBySlug: Record<string, ProjectEvidence> = {
         note: '片段证明系统不是前端模拟打字：运行时先执行 ReAct 工具循环，高风险工具进入审批，模型不可用时回退规则流程。为控制篇幅省略了与证据点无关的样板代码。'
       }
     ],
-    media: {
-      poster: '/evidence/nexus-evidence.webp',
-      caption: 'NexusAgent 证据卷宗：真实提交统计与 ReAct/SSE 执行代码。',
-      transcript: ['展示 ReAct、BM25 与设备管理提交。', '阅读流式执行入口和审批分支。', '指出明确记录的降级路径与工程债务。']
-    }
+    media: [
+      {
+        poster: '/evidence/nexus-evidence.webp',
+        caption: 'NexusAgent 证据卷宗：真实提交统计与 ReAct/SSE 执行代码。',
+        transcript: ['展示 ReAct、BM25 与设备管理提交。', '阅读流式执行入口和审批分支。', '指出明确记录的降级路径与工程债务。']
+      }
+    ]
   },
   'refactor-compass': {
     verification: '公开可复核',
@@ -158,11 +162,13 @@ export const evidenceBySlug: Record<string, ProjectEvidence> = {
         note: '源码可确认事件解析与索引结构；实际正确性依赖 DSH JSONL 事件格式，本站不将源码存在等同于生产环境验证。'
       }
     ],
-    media: {
-      poster: '/evidence/public-code-evidence.webp',
-      caption: '公开代码证据：固定提交、真实文件路径、短代码片段和限制说明。',
-      transcript: ['打开公开固定提交链接。', '展示 AI 调用、OOXML 解析和会话索引代码。', '说明每项实现仍存在的兼容性边界。']
-    }
+    media: [
+      {
+        poster: '/evidence/public-code-evidence.webp',
+        caption: '公开代码证据：固定提交、真实文件路径、短代码片段和限制说明。',
+        transcript: ['打开公开固定提交链接。', '展示 AI 调用、OOXML 解析和会话索引代码。', '说明每项实现仍存在的兼容性边界。']
+      }
+    ]
   },
   'fall-detection': {
     verification: '本地可追溯 / 企业脱敏',
@@ -191,18 +197,110 @@ export const evidenceBySlug: Record<string, ProjectEvidence> = {
         caption: '生命体征监测面板：心率、血氧等指标卡片布局。'
       }
     ],
-    media: {
-      poster: '/evidence/changyao-overview.webp',
-      videoWebm: '/media/changyao-demo.webm',
-      videoMp4: '/media/changyao-demo.mp4',
-      caption: '长耀健行助手监控大屏现场演示：从实时总览到跌倒告警触发与事件日志。',
-      transcript: [
-        '打开老人实时监控大屏原型，展示摄像头区域、姿态状态与 KPI 面板。',
-        '滚动到生命体征与健康指标区域。',
-        '触发跌倒告警：姿态状态切换为「跌倒!」，风险等级置高，告警面板弹出。',
-        '展示事件日志面板后回到总览。',
-        '注意：这是自建原型演示，不代表真实摄像头推理性能。'
-      ]
-    }
+    media: [
+      {
+        poster: '/evidence/changyao-overview.webp',
+        videoWebm: '/media/changyao-demo.webm',
+        videoMp4: '/media/changyao-demo.mp4',
+        caption: '长耀健行助手监控大屏现场演示：从实时总览到跌倒告警触发与事件日志。',
+        transcript: [
+          '打开老人实时监控大屏原型，展示摄像头区域、姿态状态与 KPI 面板。',
+          '滚动到生命体征与健康指标区域。',
+          '触发跌倒告警：姿态状态切换为「跌倒!」，风险等级置高，告警面板弹出。',
+          '展示事件日志面板后回到总览。',
+          '注意：这是自建原型演示，不代表真实摄像头推理性能。'
+        ]
+      }
+    ]
+  },
+  'smart-meeting': {
+    verification: '公开可复核',
+    verificationNote: '以下画面来自灵犀会议室真实运行界面的录制与截图：看板图、AI 自然语言预订、时间轴可视化预订。两段视频由原 2156×1356 素材转码压缩而来。截图与视频均为项目实际演示记录。',
+    commits: [],
+    screenshots: [
+      {
+        src: '/evidence/meeting-dashboard.webp',
+        alt: '灵犀会议室看板',
+        caption: '会议室预订与数据看板：房间状态、预订分布与统计指标。',
+        span: true
+      }
+    ],
+    media: [
+      {
+        poster: '/evidence/meeting-dashboard.webp',
+        videoWebm: '/media/meeting-ai-booking.webm',
+        videoMp4: '/media/meeting-ai-booking.mp4',
+        caption: 'AI 智能预订：以自然语言向对话助手描述会议需求，系统解析意图并完成预订。',
+        transcript: ['打开会议室看板。', '向 AI 助手输入自然语言预订需求。', '系统解析意图并展示可预订时段，完成预订。']
+      },
+      {
+        poster: '/evidence/meeting-dashboard.webp',
+        videoWebm: '/media/meeting-timeline.webm',
+        videoMp4: '/media/meeting-timeline.mp4',
+        caption: '时间轴可视化预订：在时间轴上直接查看并选择会议室空闲时段。',
+        transcript: ['进入时间轴视图。', '查看各会议室空闲时段。', '选择时段完成可视化预订。']
+      }
+    ]
+  },
+  'workbuddy': {
+    verification: '公开可复核',
+    verificationNote: '以下为 WorkBuddy / Research Buddy 的「可重复模拟数据验收流程」截图，由自动化脚本基于模拟数据生成（AI 输出为 Mock 流式返回，RAG 与导出均为稳定 Mock 接口）。它们证明产品流程已跑通，但不代表生产数据或真实模型性能。',
+    commits: [],
+    screenshots: [
+      {
+        src: '/evidence/wb-dashboard.webp',
+        alt: 'WorkBuddy 首页看板',
+        caption: '首页看板：KPI 与知识库资料入口。',
+        span: true
+      },
+      {
+        src: '/evidence/wb-chat.webp',
+        alt: '研思对话',
+        caption: '研思对话：输入问题并发送。'
+      },
+      {
+        src: '/evidence/wb-rag.webp',
+        alt: 'RAG 检索',
+        caption: '知识库检索：输入关键词触发 RAG 搜索。'
+      },
+      {
+        src: '/evidence/wb-close-read.webp',
+        alt: '资料精读与启发库',
+        caption: '精读页：填写价值并加入启发库。'
+      },
+      {
+        src: '/evidence/wb-topic.webp',
+        alt: 'AI 选题',
+        caption: 'AI 选题：填写要求并生成候选标题。'
+      },
+      {
+        src: '/evidence/wb-workspace.webp',
+        alt: '论文写作工作区',
+        caption: '论文任务写作工作区。'
+      },
+      {
+        src: '/evidence/wb-draft.webp',
+        alt: 'AI 生成初稿',
+        caption: '分阶段 AI 生成：进入文案初稿阶段。'
+      },
+      {
+        src: '/evidence/wb-mobile.webp',
+        alt: '移动端响应式',
+        caption: '移动端响应式效果。'
+      }
+    ]
+  },
+  'smart-mine': {
+    verification: '本地可追溯 / 企业脱敏',
+    verificationNote: '以下为煤矿全域智能监管平台「AI 核心平台大屏」运行界面截图。该大屏是项目竞赛材料中的真实界面记录；项目为团队竞赛成果，具体个人模块边界与可公开范围待补充项目材料后完善。',
+    commits: [],
+    screenshots: [
+      {
+        src: '/evidence/mine-dashboard.webp',
+        alt: '煤矿 AI 核心平台大屏',
+        caption: 'AI 核心平台大屏：全域监管指标、实时监测与预警总览。',
+        span: true
+      }
+    ]
   }
 };

@@ -34,26 +34,26 @@ const { evidence, projectTitle } = Astro.props;
     </div>
   )}
 
-  {evidence.media && (
+  {evidence.media && evidence.media.length > 0 && evidence.media.map((mediaItem) => (
     <figure class="evidence-media reveal">
-      {evidence.media.videoWebm ? (
-        <video controls playsinline preload="metadata" poster={evidence.media.poster} aria-label={`${projectTitle} 演示视频`}>
-          {evidence.media.videoMp4 && <source src={evidence.media.videoMp4} type="video/mp4" />}
-          <source src={evidence.media.videoWebm} type="video/webm" />
+      {mediaItem.videoWebm ? (
+        <video controls playsinline preload="metadata" poster={mediaItem.poster} aria-label={`${projectTitle} 演示视频`}>
+          {mediaItem.videoMp4 && <source src={mediaItem.videoMp4} type="video/mp4" />}
+          <source src={mediaItem.videoWebm} type="video/webm" />
           当前浏览器不能播放视频，请阅读下方演示文字说明。
         </video>
       ) : (
-        <img src={evidence.media.poster} width="1440" height="900" loading="lazy" alt={evidence.media.caption} />
+        <img src={mediaItem.poster} width="1440" height="900" loading="lazy" alt={mediaItem.caption} />
       )}
       <figcaption>
-        <strong>{evidence.media.caption}</strong>
+        <strong>{mediaItem.caption}</strong>
         <details>
           <summary>查看视频文字说明</summary>
-          <ol>{evidence.media.transcript.map((line) => <li>{line}</li>)}</ol>
+          <ol>{mediaItem.transcript.map((line) => <li>{line}</li>)}</ol>
         </details>
       </figcaption>
     </figure>
-  )}
+  ))}
 
   {evidence.links && evidence.links.length > 0 && (
     <div class="source-links reveal">
@@ -110,7 +110,7 @@ const { evidence, projectTitle } = Astro.props;
 <style>
   .evidence-dossier {
     padding-block: var(--section);
-    border-top: 1px solid var(--ink);
+    border-top: var(--border);
   }
 
   .dossier-header {
@@ -127,27 +127,32 @@ const { evidence, projectTitle } = Astro.props;
 
   .verification-stamp {
     display: grid;
-    border: 2px solid var(--accent-dark);
+    border: var(--border);
+    background: var(--yellow);
     padding: 0.7rem 1rem;
-    color: var(--accent-dark);
-    transform: rotate(-1deg);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    transform: rotate(-1.5deg);
   }
 
   .verification-stamp span {
     font-size: 0.62rem;
+    font-weight: 800;
     letter-spacing: 0.1em;
   }
 
   .verification-stamp strong {
     font-size: 0.9rem;
+    font-weight: 900;
   }
 
   .verification-note {
     max-width: 56rem;
     margin-bottom: 3rem;
-    border-left: 3px solid var(--accent);
+    border-left: 8px solid var(--pink);
     padding-left: 1rem;
     color: var(--ink-soft);
+    font-weight: 600;
   }
 
   .screenshot-gallery {
@@ -159,8 +164,9 @@ const { evidence, projectTitle } = Astro.props;
 
   .shot {
     margin: 0;
-    border: 1px solid var(--ink);
-    background: var(--white);
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
   }
 
   .shot-span {
@@ -173,14 +179,15 @@ const { evidence, projectTitle } = Astro.props;
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    background: #0d211c;
+    background: #111;
   }
 
   .shot figcaption {
     padding: 0.7rem 1rem;
-    border-top: 1px solid var(--line);
+    border-top: var(--border);
     font-size: 0.85rem;
-    color: var(--ink-soft);
+    color: var(--ink);
+    font-weight: 700;
   }
 
   @media (max-width: 760px) {
@@ -197,9 +204,10 @@ const { evidence, projectTitle } = Astro.props;
     display: grid;
     grid-template-columns: minmax(0, 1.5fr) minmax(15rem, 0.5fr);
     margin: 0 0 5rem;
-    border: 1px solid var(--ink);
+    border: var(--border);
     background: var(--ink);
     color: var(--white);
+    box-shadow: var(--shadow);
   }
 
   .evidence-media video,
@@ -208,14 +216,14 @@ const { evidence, projectTitle } = Astro.props;
     height: 100%;
     min-height: 22rem;
     object-fit: cover;
-    background: #0d211c;
+    background: #111;
   }
 
   .evidence-media figcaption {
     display: grid;
     align-content: space-between;
     gap: 2rem;
-    border-left: 1px solid rgba(247,246,241,.3);
+    border-left: 1px solid rgba(255,255,255,.25);
     padding: 1.3rem;
   }
 
@@ -224,9 +232,10 @@ const { evidence, projectTitle } = Astro.props;
   }
 
   summary {
-    color: #df9a51;
+    color: var(--yellow);
     cursor: pointer;
     font-family: var(--mono);
+    font-weight: 800;
   }
 
   details ol {
@@ -247,7 +256,7 @@ const { evidence, projectTitle } = Astro.props;
   .source-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid var(--ink);
+    gap: 1rem;
   }
 
   .source-grid a {
@@ -255,38 +264,38 @@ const { evidence, projectTitle } = Astro.props;
     display: grid;
     min-height: 10rem;
     gap: 0.5rem;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
     padding: 1rem 3rem 1rem 1rem;
     text-decoration: none;
-  }
-
-  .source-grid a:nth-child(2n) {
-    border-right: 0;
+    transition: transform 90ms ease, box-shadow 90ms ease, background-color 90ms ease;
   }
 
   .source-grid a:hover {
-    background: color-mix(in srgb, var(--accent) 9%, transparent);
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--ink);
+    background: var(--yellow);
   }
 
   .source-grid span {
-    color: var(--accent-dark);
     font-size: 0.65rem;
+    font-weight: 800;
   }
 
   .source-grid small {
     color: var(--ink-soft);
+    font-weight: 600;
   }
 
   .source-grid b {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: var(--accent-dark);
   }
 
   .commit-table {
-    border-top: 1px solid var(--ink);
+    border-top: var(--border);
   }
 
   .commit-row {
@@ -294,20 +303,20 @@ const { evidence, projectTitle } = Astro.props;
     grid-template-columns: 7rem 6rem minmax(0, 1fr) 6rem;
     gap: 1rem;
     align-items: start;
-    border-bottom: 1px solid var(--line);
-    padding: 1rem 0;
+    border-bottom: var(--border);
+    padding: 1rem;
+    background: var(--surface);
+  }
+
+  .commit-row:nth-child(odd) {
+    background: var(--yellow);
   }
 
   .commit-row time,
   .commit-row code,
   .commit-row a,
   .private-mark {
-    font: 0.72rem var(--mono);
-  }
-
-  .commit-row code,
-  .commit-row a {
-    color: var(--accent-dark);
+    font: 700 0.72rem var(--mono);
   }
 
   .commit-row div {
@@ -316,6 +325,7 @@ const { evidence, projectTitle } = Astro.props;
 
   .commit-row small {
     color: var(--ink-soft);
+    font-weight: 600;
   }
 
   .private-mark {
@@ -328,9 +338,10 @@ const { evidence, projectTitle } = Astro.props;
   }
 
   .code-case {
-    border: 1px solid var(--ink);
-    background: #102a23;
-    color: #e9e7df;
+    border: var(--border);
+    background: #141414;
+    color: #f6f4ee;
+    box-shadow: var(--shadow);
   }
 
   .code-case > header {
@@ -339,32 +350,35 @@ const { evidence, projectTitle } = Astro.props;
     justify-content: space-between;
     gap: 1rem;
     padding: 1.2rem;
+    background: var(--yellow);
+    color: var(--ink);
   }
 
   .code-case > header span {
-    color: #df9a51;
     font-size: 0.66rem;
+    font-weight: 800;
     text-transform: uppercase;
   }
 
   .code-case h3 {
     margin: 0.35rem 0 0;
     font-size: clamp(1.25rem, 2vw, 1.8rem);
+    color: var(--ink);
   }
 
   .code-case > header a {
-    color: #df9a51;
-    font: 0.72rem var(--mono);
+    color: var(--ink);
+    font: 800 0.72rem var(--mono);
   }
 
   .file-bar {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    border-block: 1px solid rgba(233,231,223,.22);
+    border-block: 1px solid rgba(246,244,238,.25);
     padding: 0.65rem 1.2rem;
-    color: rgba(233,231,223,.65);
-    font: 0.68rem var(--mono);
+    color: rgba(246,244,238,.7);
+    font: 700 0.68rem var(--mono);
     overflow-wrap: anywhere;
   }
 
@@ -372,7 +386,7 @@ const { evidence, projectTitle } = Astro.props;
     margin: 0;
     overflow-x: auto;
     padding: clamp(1rem, 3vw, 2rem);
-    background: #0b1f1a;
+    background: #0c0c0c;
     font: 0.78rem/1.7 var(--mono);
     tab-size: 2;
   }
@@ -380,10 +394,11 @@ const { evidence, projectTitle } = Astro.props;
   .code-case > p {
     max-width: none;
     margin: 0;
-    border-top: 1px solid rgba(233,231,223,.22);
+    border-top: 1px solid rgba(246,244,238,.25);
     padding: 1.2rem;
-    color: rgba(233,231,223,.75);
+    color: rgba(246,244,238,.78);
     font-size: 0.9rem;
+    font-weight: 600;
   }
 
   @media (max-width: 760px) {
@@ -399,18 +414,13 @@ const { evidence, projectTitle } = Astro.props;
     }
 
     .evidence-media figcaption {
-      border-top: 1px solid rgba(247,246,241,.3);
+      border-top: 1px solid rgba(255,255,255,.25);
       border-left: 0;
     }
 
     .evidence-media video,
     .evidence-media img {
       min-height: auto;
-    }
-
-    .source-grid a,
-    .source-grid a:nth-child(2n) {
-      border-right: 0;
     }
 
     .commit-row {

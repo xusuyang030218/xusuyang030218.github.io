@@ -106,7 +106,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
   .about-hero {
     display: grid;
-    min-height: calc(100dvh - 73px);
+    min-height: calc(100dvh - 74px);
     grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
     gap: clamp(3rem, 8vw, 8rem);
     align-items: center;
@@ -119,8 +119,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .about-intro {
-    border-left: 1px solid var(--line);
-    padding-left: 2rem;
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
   }
 
   .about-intro img {
@@ -128,12 +130,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     aspect-ratio: 1;
     object-fit: cover;
     margin-bottom: 1.5rem;
-    filter: grayscale(1) contrast(1.05);
+    border: var(--border);
+    background: var(--cyan);
+    filter: grayscale(1) contrast(1.08);
   }
 
   .about-intro p {
     color: var(--ink-soft);
     font-size: 1.08rem;
+    font-weight: 600;
   }
 
   .profile-grid,
@@ -146,11 +151,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .profile-title h2 {
     margin-bottom: 0.7rem;
+    width: fit-content;
+    border: var(--border);
+    background: var(--yellow);
+    box-shadow: var(--shadow-sm);
+    padding: 0 0.6rem;
   }
 
   .profile-copy {
     color: var(--ink-soft);
     font-size: 1.08rem;
+    font-weight: 600;
   }
 
   .contact-links {
@@ -161,33 +172,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .skills-section {
-    border-block: 1px solid var(--ink);
-    background: var(--ink);
-    color: var(--white);
-  }
-
-  .skills-section .kicker {
-    color: #df9a51;
+    border-block: var(--border);
+    background: var(--purple);
   }
 
   .skill-columns {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
 
   .skill-columns article {
     min-height: 22rem;
-    border-left: 1px solid rgba(247, 246, 241, 0.28);
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
     padding: 1.2rem;
   }
 
-  .skill-columns article:last-child {
-    border-right: 1px solid rgba(247, 246, 241, 0.28);
+  .skill-columns article:nth-child(2) {
+    background: var(--yellow);
+  }
+
+  .skill-columns article:nth-child(3) {
+    background: var(--green);
   }
 
   .skill-columns h2 {
-    color: #df9a51;
-    font: 700 0.78rem var(--mono);
+    font: 800 0.78rem var(--mono);
   }
 
   .skill-columns h3 {
@@ -195,8 +207,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .skill-columns p {
-    color: rgba(247, 246, 241, 0.7);
+    color: var(--ink-soft);
     font-size: 0.9rem;
+    font-weight: 600;
   }
 
   .timeline ol {
@@ -209,13 +222,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: grid;
     grid-template-columns: 8rem 1fr;
     gap: 1.5rem;
-    border-top: 1px solid var(--line);
-    padding: 1.6rem 0;
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem;
+    padding: 1.4rem;
   }
 
   .timeline time {
-    color: var(--accent-dark);
-    font: 0.72rem var(--mono);
+    font: 700 0.72rem var(--mono);
   }
 
   .timeline h3 {
@@ -225,29 +240,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .timeline p {
     margin: 0;
     color: var(--ink-soft);
+    font-weight: 600;
   }
 
   .honors-section {
-    border-block: 1px solid var(--ink);
-    background: var(--paper-deep);
-  }
-
-  .honor-list {
-    border-top: 1px solid var(--ink);
+    border-block: var(--border);
+    background: var(--yellow);
   }
 
   .honor-list p {
     display: grid;
     grid-template-columns: 7rem 1fr;
     gap: 1rem;
-    margin: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 1rem 0;
+    margin: 0 0 0.75rem;
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem;
   }
 
   .honor-list b {
-    color: var(--accent-dark);
-    font: 0.72rem var(--mono);
+    font: 800 0.72rem var(--mono);
   }
 
   .principles div {
@@ -258,12 +271,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .principles blockquote {
     margin: 0;
-    border-top: 3px solid var(--accent);
-    padding-top: 1.2rem;
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    padding: 1.2rem;
     color: var(--ink);
     font-size: clamp(1.3rem, 2.5vw, 2rem);
-    font-weight: 700;
-    line-height: 1.2;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .principles blockquote:nth-child(2) {
+    background: var(--cyan);
+  }
+
+  .principles blockquote:nth-child(3) {
+    background: var(--pink);
   }
 
   @media (max-width: 800px) {
@@ -273,12 +296,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .honors-grid {
       min-height: auto;
       grid-template-columns: 1fr;
-    }
-
-    .about-intro {
-      border-top: 1px solid var(--line);
-      border-left: 0;
-      padding: 1.5rem 0 0;
     }
 
     .skill-columns,
@@ -295,8 +312,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .skill-columns article {
       min-height: auto;
-      border-right: 1px solid rgba(247, 246, 241, 0.28);
-      border-bottom: 1px solid rgba(247, 246, 241, 0.28);
     }
 
     .skill-columns h3 {
