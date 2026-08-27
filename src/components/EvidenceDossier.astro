@@ -218,7 +218,7 @@ const { evidence, projectTitle } = Astro.props;
     height: 100%;
     min-height: 22rem;
     object-fit: cover;
-    background: #0a0c0b;
+    background: var(--surface-2);
   }
 
   .evidence-media figcaption {
@@ -354,8 +354,8 @@ const { evidence, projectTitle } = Astro.props;
   .code-case {
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: #101410;
-    color: #f2f1ea;
+    background: var(--surface);
+    color: var(--ink);
     overflow: hidden;
   }
 
@@ -402,7 +402,8 @@ const { evidence, projectTitle } = Astro.props;
     margin: 0;
     overflow-x: auto;
     padding: clamp(1rem, 3vw, 2rem);
-    background: #0a0c0b;
+    background: var(--code-bg);
+    color: var(--code-ink);
     font: 0.78rem/1.7 var(--mono);
     tab-size: 2;
   }
