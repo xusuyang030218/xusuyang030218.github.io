@@ -19,9 +19,42 @@ const { project } = Astro.props;
 const currentIndex = projects.findIndex((item) => item.slug === project.slug);
 const nextProject = projects[(currentIndex + 1) % projects.length];
 const dossier = evidenceBySlug[project.slug];
+
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  '@id': new URL(`/projects/${project.slug}/`, Astro.site).href,
+  name: project.title,
+  alternateName: project.shortTitle,
+  description: project.summary,
+  abstract: project.statement,
+  url: new URL(`/projects/${project.slug}/`, Astro.site).href,
+  image: new URL(project.image, Astro.site).href,
+  inLanguage: 'zh-CN',
+  genre: project.categoryLabel,
+  keywords: project.stack.join(', '),
+  creator: { '@id': 'https://xusuyang030218.github.io/#person' },
+  author: { '@id': 'https://xusuyang030218.github.io/#person' },
+  ...(project.repository ? { codeRepository: project.repository } : {})
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: '项目', item: new URL('/projects/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: project.title }
+  ]
+};
 ---
 
-<BaseLayout title={project.title} description={project.summary} image={project.image}>
+<BaseLayout
+  title={project.title}
+  description={project.summary}
+  image={project.image}
+  schema={[projectSchema, breadcrumbSchema]}
+>
   <article>
     <header class="case-hero">
       <div class="container case-grid">

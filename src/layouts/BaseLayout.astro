@@ -7,12 +7,54 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  /** Intrinsic size of the share image, so crawlers need no extra fetch. */
+  imageWidth?: number;
+  imageHeight?: number;
+  /** Optional extra JSON-LD graph nodes contributed by a page. */
+  schema?: Record<string, unknown>[];
 }
 
-const { title, description, image = '/evidence/dts-evidence.webp' } = Astro.props;
+const {
+  title,
+  description,
+  image = '/evidence/dts-evidence.webp',
+  imageWidth = 1440,
+  imageHeight = 900,
+  schema = []
+} = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site);
-const fullTitle = title === '徐苏洋' ? title : `${title} | 徐苏洋`;
+const isHome = title === '徐苏洋';
+const fullTitle = isHome ? '徐苏洋 | LLM 应用 · Java 全栈 · 前端重构' : `${title} | 徐苏洋`;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://xusuyang030218.github.io/#person',
+  name: '徐苏洋',
+  alternateName: 'Xu Suyang',
+  url: 'https://xusuyang030218.github.io',
+  image: new URL('/evidence/dts-evidence.webp', Astro.site).href,
+  email: '2307456010@qq.com',
+  sameAs: ['https://github.com/xusuyang030218', 'https://gitee.com/anhuiwuhu_xsy'],
+  jobTitle: '软件开发工程师',
+  description,
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: '大连东软信息学院'
+  },
+  knowsAbout: [
+    '大模型应用',
+    'RAG 检索增强生成',
+    'AI Agent',
+    'Java 全栈开发',
+    'Spring Boot',
+    '前端重构',
+    'Large Language Models',
+    'Retrieval-Augmented Generation'
+  ]
+};
 ---
 
 <!doctype html>
@@ -23,28 +65,29 @@ const fullTitle = title === '徐苏洋' ? title : `${title} | 徐苏洋`;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0c0f0d" />
     <meta name="color-scheme" content="dark" />
+    <meta name="author" content="徐苏洋" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:site_name" content="徐苏洋" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imageUrl} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={`${title} 项目证据截图`} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={`${title} 项目证据截图`} />
     <title>{fullTitle}</title>
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: '徐苏洋',
-      url: 'https://xusuyang030218.github.io',
-      email: 'mailto:2307456010@qq.com',
-      sameAs: ['https://github.com/xusuyang030218', 'https://gitee.com/anhuiwuhu_xsy'],
-      jobTitle: '软件开发工程师',
-      knowsAbout: ['Large Language Models', 'RAG', 'AI Agents', 'Java', 'Spring Boot', 'Frontend Refactoring']
-    })}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(person)}></script>
+    {schema.map((node) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(node)}></script>
+    ))}
   </head>
   <body>
     <Header pathname={Astro.url.pathname} />

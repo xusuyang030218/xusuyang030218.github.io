@@ -83,6 +83,26 @@ body {
   border-radius: 4px;
 }
 
+/*
+ * The accent button already uses --focus as its background, so an accent
+ * outline would vanish. Give those a contrasting ring instead.
+ */
+.button:not(.secondary):focus-visible,
+.filter-bar button[aria-pressed="true"]:focus-visible {
+  outline-color: var(--ink);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* Cards are wrapped in a link; surface the focus ring on the card itself. */
+.project-card:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.card-link:focus-visible {
+  outline-offset: -3px;
+}
+
 img,
 video {
   display: block;
@@ -442,20 +462,26 @@ small,
     min-height: 62px;
   }
 
-  .menu-toggle {
+  /* Only show the toggle when JS can actually reopen the menu. */
+  .nav[data-js="true"] .menu-toggle {
     display: inline-flex;
   }
 
   .nav-links {
-    display: none;
     grid-column: 1 / -1;
+    display: flex;
     align-items: stretch;
     flex-direction: column;
     gap: 0.4rem;
     padding: 0.5rem 0 1rem;
   }
 
-  .nav-links[data-open="true"] {
+  /* Without JS the links stay visible, so the nav is never unreachable. */
+  .nav[data-js="true"] .nav-links {
+    display: none;
+  }
+
+  .nav[data-js="true"] .nav-links[data-open="true"] {
     display: flex;
   }
 

@@ -1,4 +1,31 @@
+import type { ImageMetadata } from 'astro';
+
+import dtsEvidence from '../assets/evidence/dts-evidence.webp';
+import nexusEvidence from '../assets/evidence/nexus-evidence.webp';
+import wbDashboard from '../assets/evidence/wb-dashboard.webp';
+import meetingDashboard from '../assets/evidence/meeting-dashboard.webp';
+import publicCodeEvidence from '../assets/evidence/public-code-evidence.webp';
+import mineDashboard from '../assets/evidence/mine-dashboard.webp';
+import changyaoMonitor from '../assets/evidence/changyao-monitor.webp';
+import projectsShot from '../assets/evidence/projects.webp';
+
 export type ProjectCategory = 'enterprise' | 'agent' | 'backend' | 'iot' | 'tooling';
+
+/**
+ * Importable copies of the card images so Astro's build can emit a real
+ * responsive srcset. `Project.image` stays a plain public path because
+ * Open Graph tags need an absolute, unhashed URL.
+ */
+export const projectImages: Record<string, ImageMetadata> = {
+  'dts-dashboard': dtsEvidence,
+  'nexus-agent': nexusEvidence,
+  workbuddy: wbDashboard,
+  'smart-meeting': meetingDashboard,
+  'refactor-compass': publicCodeEvidence,
+  'smart-mine': mineDashboard,
+  'fall-detection': changyaoMonitor,
+  'agent-skills': projectsShot
+};
 
 export interface Project {
   slug: string;

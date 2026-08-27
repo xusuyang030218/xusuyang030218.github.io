@@ -4,9 +4,27 @@ import ProjectRow from '../../components/ProjectRow.astro';
 import { projects, categoryLabels, type ProjectCategory } from '../../data/projects';
 
 const categories = Object.entries(categoryLabels) as [ProjectCategory, string][];
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '项目归档',
+  numberOfItems: projects.length,
+  itemListElement: projects.map((project, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: project.title,
+    description: project.summary,
+    url: new URL(`/projects/${project.slug}/`, Astro.site).href
+  }))
+};
 ---
 
-<BaseLayout title="项目" description="徐苏洋的项目归档，涵盖 DTS 前端重构、AI Agent、RAG、Java 全栈、IoT 与自研开发者工具。">
+<BaseLayout
+  title="项目"
+  description="徐苏洋的项目归档，涵盖 DTS 前端重构、AI Agent、RAG、Java 全栈、IoT 与自研开发者工具。"
+  schema={[listSchema]}
+>
   <header class="archive-hero container">
     <p class="kicker">项目集萃</p>
     <h1>项目归档</h1>
@@ -24,7 +42,7 @@ const categories = Object.entries(categoryLabels) as [ProjectCategory, string][]
     <div class="archive-grid">
       {projects.map((project, index) => (
         <div data-category={project.category}>
-          <ProjectRow project={project} index={index} />
+          <ProjectRow project={project} index={index} priority={index === 0} />
         </div>
       ))}
     </div>

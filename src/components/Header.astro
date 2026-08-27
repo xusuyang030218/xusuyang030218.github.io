@@ -9,7 +9,7 @@ const links = [
 
 <a class="skip-link" href="#main">跳到正文</a>
 <header class="site-header">
-  <nav class="nav container" aria-label="主导航">
+  <nav class="nav container" aria-label="主导航" data-js="false">
     <a class="brand" href="/">
       <span class="brand-mark" aria-hidden="true">徐</span>
       <span>徐苏洋</span>
@@ -25,11 +25,34 @@ const links = [
   </nav>
 </header>
 <script>
+  // Progressive enhancement: only collapse the nav once JS can reopen it.
+  const nav = document.querySelector<HTMLElement>('.nav');
   const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
   const links = document.querySelector<HTMLElement>('#nav-links');
-  button?.addEventListener('click', () => {
-    const open = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', String(!open));
-    if (links) links.dataset.open = String(!open);
-  });
+
+  if (nav && button && links) {
+    nav.dataset.js = 'true';
+
+    const setOpen = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      links.dataset.open = String(open);
+    };
+
+    button.addEventListener('click', () => {
+      setOpen(button.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Collapse on Escape, and move focus back to the trigger.
+    links.addEventListener('keydown', (event) => {
+      if ((event as KeyboardEvent).key === 'Escape') {
+        setOpen(false);
+        button.focus();
+      }
+    });
+
+    // Collapse after navigating to a same-page anchor on small screens.
+    links.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).tagName === 'A') setOpen(false);
+    });
+  }
 </script>

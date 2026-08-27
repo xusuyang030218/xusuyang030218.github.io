@@ -74,7 +74,7 @@ const marqueeItems = ['企业前端重构', 'LLM 应用', 'RAG 检索', 'AI Agen
         <a class="button secondary" href="/projects/">查看全部项目</a>
       </div>
       <div class="project-grid">
-        {featuredProjects.map((project, index) => <ProjectRow project={project} index={index} />)}
+        {featuredProjects.map((project, index) => <ProjectRow project={project} index={index} priority={index === 0} />)}
       </div>
     </div>
   </section>

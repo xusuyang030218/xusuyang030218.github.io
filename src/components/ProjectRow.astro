@@ -1,18 +1,30 @@
 ---
-import type { Project } from '../data/projects';
+import { Image } from 'astro:assets';
+import { projectImages, type Project } from '../data/projects';
 
 interface Props {
   project: Project;
   index: number;
+  /** Eager-load the first card so the projects grid has no lazy-in pop. */
+  priority?: boolean;
 }
 
-const { project, index } = Astro.props;
+const { project, index, priority = false } = Astro.props;
+const cardImage = projectImages[project.slug];
 ---
 
 <article class="project-card reveal">
   <a class="card-link" href={`/projects/${project.slug}/`} aria-label={`查看项目：${project.title}`}>
     <div class="card-media">
-      <img src={project.image} alt={project.title} width="1200" height="750" loading="lazy" decoding="async" />
+      <Image
+        src={cardImage}
+        alt={project.title}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 900px) 100vw, (max-width: 1180px) 50vw, 566px"
+        loading={priority ? 'eager' : 'lazy'}
+        fetchpriority={priority ? 'high' : 'auto'}
+        decoding="async"
+      />
       <span class="card-index mono">{String(index + 1).padStart(2, '0')}</span>
       <span class="card-arrow" aria-hidden="true">↗</span>
     </div>
@@ -58,7 +70,7 @@ const { project, index } = Astro.props;
     background: var(--surface-2);
   }
 
-  .card-media img {
+  .card-media :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -66,7 +78,7 @@ const { project, index } = Astro.props;
     transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1), filter 500ms;
   }
 
-  .project-card:hover .card-media img {
+  .project-card:hover .card-media :global(img) {
     transform: scale(1.045);
     filter: saturate(1) brightness(1);
   }
