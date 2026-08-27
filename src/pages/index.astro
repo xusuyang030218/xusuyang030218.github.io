@@ -160,7 +160,7 @@ import { featuredProjects } from '../data/projects';
     aspect-ratio: 1;
     margin-bottom: 1.6rem;
     border: var(--border);
-    background: var(--cyan);
+    background: var(--blue);
     box-shadow: var(--shadow);
     overflow: hidden;
     filter: grayscale(1) contrast(1.08);
@@ -241,14 +241,14 @@ import { featuredProjects } from '../data/projects';
   }
 
   .thesis-notes {
-    border-left: 8px solid var(--pink);
+    border-left: 8px solid var(--blue);
     padding-left: 1.4rem;
     color: var(--ink-soft);
     font-weight: 600;
   }
 
   .projects-section {
-    background: var(--cyan);
+    background: var(--blue-soft);
     border-block: var(--border);
   }
 
@@ -315,11 +315,12 @@ import { featuredProjects } from '../data/projects';
   }
 
   .flow-diagram div:nth-child(3) {
-    background: var(--green);
+    background: var(--gray);
   }
 
   .flow-diagram div:nth-child(4) {
-    background: var(--purple);
+    background: var(--blue);
+    color: var(--white);
   }
 
   .flow-diagram b {
@@ -337,6 +338,10 @@ import { featuredProjects } from '../data/projects';
     font-weight: 700;
   }
 
+  .flow-diagram div:nth-child(4) small {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
   .dts-copy {
     grid-column: 2;
     display: flex;
@@ -352,7 +357,8 @@ import { featuredProjects } from '../data/projects';
 
   .skills-band {
     border-block: var(--border);
-    background: var(--pink);
+    background: var(--blue);
+    color: var(--white);
   }
 
   .skills-layout {
@@ -365,6 +371,10 @@ import { featuredProjects } from '../data/projects';
     position: sticky;
     top: 2rem;
     align-self: start;
+  }
+
+  .skills-band .lede {
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .skill-ledger {

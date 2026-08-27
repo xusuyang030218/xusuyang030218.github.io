@@ -11,30 +11,29 @@
 }
 
 /* ============================================================
-   NEOBRUTALISM DESIGN TOKENS
-   Hard borders, hard shadows, flat bright color blocks.
+   NEOBRUTALISM DESIGN TOKENS — BLUE / GRAY / WHITE / YELLOW
+   Hard borders, hard shadows, flat color blocks.
    ============================================================ */
 :root {
   color-scheme: light;
-  --bg: #f6f4ee;
+  --bg: #f4f6f9;
   --surface: #ffffff;
-  --ink: #131313;
-  --ink-soft: #45423b;
-  --line: #131313;
+  --ink: #1e2a3a;
+  --ink-soft: #4b5a6f;
+  --line: #1e2a3a;
   --yellow: #ffd43b;
-  --pink: #ff5d8f;
-  --cyan: #4cc9f0;
-  --green: #80ed99;
-  --purple: #b388ff;
-  --orange: #ff9f1c;
+  --blue: #2563eb;
+  --blue-dark: #1e40af;
+  --blue-soft: #dbeafe;
+  --gray: #94a3b8;
   --white: #ffffff;
-  --border: 2px solid #131313;
-  --border-thin: 1.5px solid #131313;
-  --shadow: 6px 6px 0 #131313;
-  --shadow-sm: 3px 3px 0 #131313;
-  --shadow-lg: 10px 10px 0 #131313;
+  --border: 2px solid #1e2a3a;
+  --border-thin: 1.5px solid #1e2a3a;
+  --shadow: 6px 6px 0 #1e2a3a;
+  --shadow-sm: 3px 3px 0 #1e2a3a;
+  --shadow-lg: 10px 10px 0 #1e2a3a;
   --radius: 0px;
-  --focus: #131313;
+  --focus: #2563eb;
   --sans: "Site Sans", system-ui, sans-serif;
   --mono: "Site Mono", ui-monospace, monospace;
   --max: 1180px;
@@ -55,8 +54,8 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    linear-gradient(rgba(19, 19, 19, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 19, 19, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(30, 42, 58, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 42, 58, 0.05) 1px, transparent 1px),
     var(--bg);
   background-size: 32px 32px;
   color: var(--ink);
@@ -182,8 +181,8 @@ small,
   gap: 0.6rem;
   border: var(--border);
   border-radius: var(--radius);
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--blue);
+  color: var(--white);
   padding: 0.75rem 1.2rem;
   font-family: var(--mono);
   font-size: 0.86rem;
@@ -198,7 +197,7 @@ small,
 .button:hover {
   transform: translate(-2px, -2px);
   box-shadow: 8px 8px 0 var(--ink);
-  background: var(--cyan);
+  background: var(--blue-dark);
 }
 
 .button:active {
@@ -212,7 +211,8 @@ small,
 }
 
 .button.secondary:hover {
-  background: var(--pink);
+  background: var(--yellow);
+  color: var(--ink);
 }
 
 .tags {
@@ -278,7 +278,7 @@ small,
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   border: var(--border-thin);
-  background: var(--cyan);
+  background: var(--yellow);
   padding: 0.12rem 0.35rem;
 }
 
