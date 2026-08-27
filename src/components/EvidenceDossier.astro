@@ -23,6 +23,17 @@ const { evidence, projectTitle } = Astro.props;
 
   <p class="verification-note">{evidence.verificationNote}</p>
 
+  {evidence.screenshots && evidence.screenshots.length > 0 && (
+    <div class="screenshot-gallery reveal" aria-label="项目截图证据">
+      {evidence.screenshots.map((shot) => (
+        <figure class:list={['shot', shot.span ? 'shot-span' : '']}>
+          <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" width="1600" height="900" />
+          <figcaption>{shot.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )}
+
   {evidence.media && (
     <figure class="evidence-media reveal">
       {evidence.media.videoWebm ? (
@@ -137,6 +148,49 @@ const { evidence, projectTitle } = Astro.props;
     border-left: 3px solid var(--accent);
     padding-left: 1rem;
     color: var(--ink-soft);
+  }
+
+  .screenshot-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .shot {
+    margin: 0;
+    border: 1px solid var(--ink);
+    background: var(--white);
+  }
+
+  .shot-span {
+    grid-column: 1 / -1;
+  }
+
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #0d211c;
+  }
+
+  .shot figcaption {
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 760px) {
+    .screenshot-gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .shot-span {
+      grid-column: auto;
+    }
   }
 
   .evidence-media {

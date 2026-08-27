@@ -29,6 +29,12 @@ export interface ProjectEvidence {
   links?: EvidenceLink[];
   commits: CommitEvidence[];
   code?: CodeEvidence[];
+  screenshots?: {
+    src: string;
+    alt: string;
+    caption: string;
+    span?: boolean;
+  }[];
   media?: {
     poster: string;
     videoWebm?: string;
@@ -156,6 +162,47 @@ export const evidenceBySlug: Record<string, ProjectEvidence> = {
       poster: '/evidence/public-code-evidence.webp',
       caption: '公开代码证据：固定提交、真实文件路径、短代码片段和限制说明。',
       transcript: ['打开公开固定提交链接。', '展示 AI 调用、OOXML 解析和会话索引代码。', '说明每项实现仍存在的兼容性边界。']
+    }
+  },
+  'fall-detection': {
+    verification: '本地可追溯 / 企业脱敏',
+    verificationNote: '以下画面来自长耀健行助手自建的「老人实时监控大屏」HTML 原型（YOLO11-Pose v2.0）真实渲染截图与现场录制，不是 AI 生成的示意图，也不包含真实老人画面、姓名或医疗数据。原型负责展示跌倒检测、生命体征与事件日志的信息架构；真实摄像头推理性能等待原始测试记录。',
+    commits: [],
+    screenshots: [
+      {
+        src: '/evidence/changyao-monitor.webp',
+        alt: '老人实时监控大屏全览',
+        caption: '老人实时监控大屏：摄像头区域、姿态状态、跌倒风险与 KPI 面板同屏。',
+        span: true
+      },
+      {
+        src: '/evidence/changyao-fall-alert.webp',
+        alt: '跌倒检测告警界面',
+        caption: '跌倒检测告警：姿态状态切换为「跌倒!」，风险等级置高并高亮告警。'
+      },
+      {
+        src: '/evidence/changyao-monitor-center.webp',
+        alt: '实时监控中心',
+        caption: '实时监控中心视图：房间区域与实时状态标签。'
+      },
+      {
+        src: '/evidence/changyao-vitals.webp',
+        alt: '生命体征监测面板',
+        caption: '生命体征监测面板：心率、血氧等指标卡片布局。'
+      }
+    ],
+    media: {
+      poster: '/evidence/changyao-overview.webp',
+      videoWebm: '/media/changyao-demo.webm',
+      videoMp4: '/media/changyao-demo.mp4',
+      caption: '长耀健行助手监控大屏现场演示：从实时总览到跌倒告警触发与事件日志。',
+      transcript: [
+        '打开老人实时监控大屏原型，展示摄像头区域、姿态状态与 KPI 面板。',
+        '滚动到生命体征与健康指标区域。',
+        '触发跌倒告警：姿态状态切换为「跌倒!」，风险等级置高，告警面板弹出。',
+        '展示事件日志面板后回到总览。',
+        '注意：这是自建原型演示，不代表真实摄像头推理性能。'
+      ]
     }
   }
 };
