@@ -387,7 +387,15 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
   /* Projects */
   .projects-section {
     border-block: 2px solid var(--line);
-    background: var(--bg-raise);
+    /* 抬升带：斜向细纹 + 内侧顶光，和纯平底色区分开 */
+    background-color: var(--bg-raise);
+    background-image:
+      repeating-linear-gradient(
+        135deg,
+        rgba(10, 10, 10, 0.014) 0 1px,
+        transparent 1px 11px
+      );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
 
   .section-heading {
@@ -484,7 +492,11 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
   /* Skills band */
   .skills-band {
     border-block: 2px solid var(--line);
-    background: var(--bg-raise);
+    /* 最深一层，收束页面尾部 */
+    background-color: var(--bg-deep);
+    background-image:
+      radial-gradient(ellipse 70% 100% at 100% 0%, rgba(27, 94, 63, 0.10), transparent 58%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
   }
 
   .skills-layout {
@@ -563,7 +575,8 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
   .stack-card {
     border: 2px solid var(--line);
     box-shadow: var(--shadow);
-    background: var(--surface);
+    background-color: var(--surface);
+    background-image: var(--surface-sheen);
     padding: 1.4rem;
   }
 
@@ -605,7 +618,13 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
   /* Notes band */
   .notes-band {
     border-block: 2px solid var(--line);
-    background: var(--bg-raise);
+    /* 网格纹，呼应"笔记本"语义 */
+    background-color: var(--bg-raise);
+    background-image:
+      linear-gradient(rgba(10, 10, 10, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 10, 10, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px, 30px 30px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
 
   .notes-layout {
@@ -638,7 +657,8 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
     gap: 0.4rem;
     border: 2px solid var(--line);
     box-shadow: var(--shadow);
-    background: var(--surface);
+    background-color: var(--surface);
+    background-image: var(--surface-sheen);
     padding: 1.2rem 1.3rem;
     text-decoration: none;
     transition: transform 120ms ease, box-shadow 120ms ease;

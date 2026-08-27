@@ -56,4 +56,24 @@ const links = [
       if ((event.target as HTMLElement).tagName === 'A') setOpen(false);
     });
   }
+
+  // Frosted header once content scrolls underneath.
+  // IntersectionObserver instead of a scroll listener: no per-frame work.
+  const header = document.querySelector<HTMLElement>('.site-header');
+
+  if (header) {
+    const sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
+    document.body.prepend(sentinel);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        header.dataset.scrolled = String(!entry.isIntersecting);
+      },
+      { rootMargin: '0px' }
+    );
+
+    observer.observe(sentinel);
+  }
 </script>
