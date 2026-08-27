@@ -1,293 +1,406 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const certificates = [
+  { src: '/honors/mcm-honorable-mention.webp', alt: '美国大学生数学建模竞赛 Honorable Mention', label: '美国大学生数学建模竞赛', level: 'Honorable Mention', year: '2025', tier: 'international' },
+  { src: '/honors/lanqiao-cpp.webp', alt: '蓝桥杯 C/C++ 程序设计', label: '蓝桥杯全国软件和信息技术专业人才大赛', level: 'C/C++ 程序设计', year: '2024 / 2025', tier: 'national' },
+  { src: '/honors/chuanzhi-programming-1st.webp', alt: '传智杯 程序设计 初赛一等奖', label: '传智杯 程序设计挑战赛', level: '初赛一等奖', year: '2025', tier: 'national' },
+  { src: '/honors/chuanzhi-programming-provincial-2nd.webp', alt: '传智杯 程序设计 省赛二等奖', label: '传智杯 程序设计挑战赛', level: '省赛二等奖', year: '2025', tier: 'provincial' },
+  { src: '/honors/chuanzhi-web-2nd.webp', alt: '传智杯 Web开发 初赛二等奖', label: '传智杯 网页开发挑战赛', level: '初赛二等奖', year: '2025', tier: 'national' },
+  { src: '/honors/chuanzhi-web-provincial-3rd.webp', alt: '传智杯 Web开发 省赛三等奖', label: '传智杯 网页开发挑战赛', level: '省赛三等奖', year: '2025', tier: 'provincial' },
+  { src: '/honors/infosec-tianti.webp', alt: '全国大学生信息安全竞赛 天梯赛', label: '全国大学生信息安全竞赛', level: '天梯赛', year: '2024', tier: 'national' },
+  { src: '/honors/chuanzhi-programming-7th.webp', alt: '第七届传智杯 程序设计挑战赛', label: '第七届传智杯 程序设计', level: '国赛二等奖', year: '2025', tier: 'national' },
+  { src: '/honors/chuanzhi-web-7th.webp', alt: '第七届传智杯 网页开发挑战赛', label: '第七届传智杯 网页开发', level: '国赛二等奖', year: '2025', tier: 'national' },
+];
 ---
 
-<BaseLayout title="关于" description="关于徐苏洋：软件工程、LLM 应用、Java 全栈、企业前端重构与 Agent Skills 实践。">
-  <header class="about-hero container">
-    <div class="about-title">
-      <p class="kicker">关于</p>
-      <h1>软件工程学生，<br /><span class="accent">也是注重落地的开发者。</span></h1>
-    </div>
-    <div class="about-intro">
-      <p>我关注大模型应用如何进入真实系统，也关心遗留代码、团队协作、测试和部署这些不够耀眼却决定交付质量的部分。</p>
-    </div>
-  </header>
-
-  <section class="section container profile-grid">
-    <div class="profile-title reveal">
-      <p class="kicker">个人档案</p>
-      <h2>徐苏洋</h2>
-      <p class="mono">2027 届 · 软件工程</p>
-    </div>
-    <div class="profile-copy reveal">
-      <p>就读于大连东软信息学院软件工程专业。实践方向覆盖 LLM 应用、RAG、Agent、Java 后端、前端可视化与工程化部署。</p>
-      <p>在亚信科技担任前端开发实习生期间，参与 DTS Dashboard 版本升级开发与前端重构，以及数据资产计量计费平台的 React 开发、联调与测试。</p>
-      <div class="contact-links">
-        <a class="button" href="mailto:2307456010@qq.com">发送邮件</a>
-        <a class="button secondary" href="https://github.com/xusuyang030218">GitHub</a>
-        <a class="button secondary" href="https://gitee.com/anhuiwuhu_xsy">Gitee</a>
+<BaseLayout title="关于" description="徐苏洋 — 软件工程学生，专注 LLM 应用、Java 全栈与前端重构。">
+  <section class="signature container">
+    <div class="sig-card reveal">
+      <div class="sig-stamp mono">XSY</div>
+      <h1>徐苏洋</h1>
+      <p class="sig-tag">软件工程 · 2027 届</p>
+      <p class="sig-line">把复杂系统做扎实。</p>
+      <div class="sig-links">
+        <a href="mailto:2307456010@qq.com">邮箱</a>
+        <a href="https://github.com/xusuyang030218" rel="me">GitHub</a>
+        <a href="https://gitee.com/anhuiwuhu_xsy" rel="me">Gitee</a>
       </div>
+    </div>
+    <div class="sig-stats reveal">
+      <div><strong>35</strong><span>竞赛获奖项次</span></div>
+      <div><strong>8</strong><span>完整项目案例</span></div>
+      <div><strong>1/33</strong><span>班级排名</span></div>
+      <div><strong>1</strong><span>国际级奖项</span></div>
     </div>
   </section>
 
-  <section class="section skills-section">
+  <section class="section container story">
+    <div class="story-label reveal">
+      <p class="kicker">关于我</p>
+    </div>
+    <div class="story-body reveal">
+      <p>就读于大连东软信息学院软件工程专业，班级排名 1/33。</p>
+      <p>关注大模型应用如何进入真实系统——权限、审计、流式输出、失败降级、数据边界。也关心遗留代码、团队协作、测试和部署这些不够耀眼却决定交付质量的部分。</p>
+      <p>在亚信科技担任前端开发实习生期间，参与 DTS Dashboard 版本升级开发与前端重构，以及数据资产计量计费平台的 React 开发。</p>
+    </div>
+  </section>
+
+  <section class="section skills-band">
     <div class="container">
-      <p class="kicker">能力版图</p>
-      <div class="skill-columns">
-        <article>
-          <h2 class="mono">01</h2>
-          <h3>大模型应用</h3>
-          <p>RAG、LangChain、向量检索、重排、Prompt 工程、SSE、Agent 执行与评估。</p>
-        </article>
-        <article>
-          <h2 class="mono">02</h2>
-          <h3>后端工程</h3>
-          <p>Java、Spring Boot、MyBatis Plus、MySQL、Redis、Redisson、Kafka 与 Docker Compose。</p>
-        </article>
-        <article>
-          <h2 class="mono">03</h2>
-          <h3>前端与重构</h3>
-          <p>Vue 2/3、React、Element UI、Ant Design、ECharts，以及遗留系统问题定位与渐进式重构。</p>
-        </article>
-        <article>
-          <h2 class="mono">04</h2>
-          <h3>Agent Skills</h3>
-          <p>将重构、代码检视、文档摄取、测试与协作方法沉淀为可复用执行协议。</p>
-        </article>
+      <p class="kicker reveal">能力</p>
+      <div class="skill-bars reveal">
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>大模型应用</span><b class="mono">85</b></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-skill="85"></div></div>
+          <p>RAG · LangChain · 向量检索 · Prompt 工程 · SSE · Agent</p>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>前端与重构</span><b class="mono">80</b></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-skill="80"></div></div>
+          <p>Vue 2/3 · React · Element UI · ECharts · 渐进式重构</p>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>后端工程</span><b class="mono">75</b></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-skill="75"></div></div>
+          <p>Spring Boot · MyBatis Plus · MySQL · Redis · Kafka · Docker</p>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>Agent Skills</span><b class="mono">70</b></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-skill="70"></div></div>
+          <p>重构 · 代码检视 · 文档摄取 · 测试 · 可复用执行协议</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section container timeline">
-    <div class="timeline-title reveal">
-      <p class="kicker">履历</p>
-      <h2>经历</h2>
-    </div>
-    <ol>
-      <li class="reveal">
-        <time class="mono">2026.06 至今</time>
-        <div><h3>亚信科技 · 前端开发实习生</h3><p>DTS Dashboard 版本升级与重构；计量计价平台 React 开发、联调与测试。</p></div>
-      </li>
-      <li class="reveal">
-        <time class="mono">2023 - 2027</time>
-        <div><h3>大连东软信息学院 · 软件工程</h3><p>班级排名 1/33，曾任极限编程社团社长与学习委员。</p></div>
-      </li>
-    </ol>
-  </section>
-
-  <section class="section honors-section">
-    <div class="container honors-grid">
-      <div class="reveal">
-        <p class="kicker">荣誉撷英</p>
-        <h2>把竞赛能力转化为工程判断。</h2>
-        <p class="lede">学校系统记录学科竞赛获奖 35 项次，其中国际级 1 项、国家级 13 项、省级 21 项。</p>
+  <section class="section honors-wall">
+    <div class="container">
+      <div class="honors-head reveal">
+        <p class="kicker">荣誉</p>
+        <h2>竞赛证书</h2>
+        <p class="lede">国际级 1 项、国家级 13 项、省级 21 项。以下为部分证书原件。</p>
       </div>
-      <div class="honor-list reveal">
-        <p><b class="mono">2025</b><span>美国大学生数学建模竞赛 Honorable Mention</span></p>
-        <p><b class="mono">2024 / 2025</b><span>蓝桥杯辽宁赛区 C/C++ 一等奖</span></p>
-        <p><b class="mono">2024 / 2025</b><span>蓝桥杯全国总决赛 C/C++ 三等奖</span></p>
-        <p><b class="mono">2025</b><span>全球校园人工智能算法精英大赛二等奖</span></p>
-        <p><b class="mono">2025</b><span>中软国际卓越杯大数据挑战赛一等奖</span></p>
+      <div class="cert-grid reveal" data-stagger>
+        {certificates.map((cert) => (
+          <figure class="cert-card">
+            <img src={cert.src} alt={cert.alt} loading="lazy" decoding="async" />
+            <figcaption>
+              <span class="cert-level">{cert.level}</span>
+              <span class="cert-name">{cert.label}</span>
+              <span class="cert-year mono">{cert.year}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .about-hero {
+  /* Signature card — the "名片" */
+  .signature {
     display: grid;
-    min-height: calc(100dvh - 68px);
-    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
-    gap: clamp(3rem, 8vw, 8rem);
-    align-items: center;
+    grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: stretch;
     padding-block: clamp(4rem, 10vw, 8rem);
   }
 
-  .about-hero h1 {
-    max-width: 13ch;
-    font-size: clamp(3rem, 7vw, 6.6rem);
-  }
-
-  .about-hero h1 .accent {
-    color: var(--accent);
-  }
-
-  .about-intro {
-    border-left: 2px solid var(--accent);
-    padding-left: 1.6rem;
-    color: var(--ink-soft);
-    font-size: 1.12rem;
-    font-weight: 500;
-  }
-
-  .profile-grid,
-  .timeline,
-  .honors-grid {
+  .sig-card {
     display: grid;
-    grid-template-columns: 0.75fr 1.25fr;
-    gap: clamp(3rem, 8vw, 8rem);
+    align-content: center;
+    gap: 0.8rem;
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--surface);
+    padding: clamp(2.5rem, 5vw, 4rem);
+    box-shadow: var(--shadow-lg);
   }
 
-  .profile-title h2 {
-    margin-bottom: 0.7rem;
-    color: var(--ink);
+  .sig-stamp {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    place-items: center;
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 1rem;
+    font-weight: 800;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.2rem;
   }
 
-  .profile-title .mono {
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 700;
+  .sig-card h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1;
   }
 
-  .profile-copy {
+  .sig-tag {
+    margin: 0;
     color: var(--ink-soft);
-    font-size: 1.08rem;
-    font-weight: 500;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
   }
 
-  .contact-links {
+  .sig-line {
+    margin-top: 0.8rem;
+    color: var(--accent);
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .sig-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.7rem;
+    gap: 0.6rem;
     margin-top: 2rem;
   }
 
-  .skills-section {
-    border-block: 1px solid var(--line);
-    background: var(--bg-raise);
+  .sig-links a {
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--highlight);
+    color: var(--ink);
+    padding: 0.5rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition: transform 120ms ease, box-shadow 120ms ease;
   }
 
-  .skill-columns {
+  .sig-links a:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow);
+  }
+
+  .sig-stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     gap: 1rem;
   }
 
-  .skill-columns article {
-    min-height: 21rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+  .sig-stats div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid var(--line);
+    border-radius: 0;
     background: var(--surface);
-    padding: 1.3rem;
-    transition: border-color 220ms ease, transform 220ms ease;
+    padding: 0.5rem 1.2rem;
+    box-shadow: var(--shadow-sm);
   }
 
-  .skill-columns article:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-  }
-
-  .skill-columns h2 {
+  .sig-stats strong {
     color: var(--accent);
-    font-size: 0.78rem;
+    font: 800 clamp(1.5rem, 3vw, 2.4rem) var(--mono);
+    line-height: 1;
+  }
+
+  .sig-stats span {
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  /* Story */
+  .story {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.4fr) minmax(0, 0.6fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .story-body {
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.85;
+  }
+
+  .story-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  .story-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Skills — progress bars */
+  .skills-band {
+    border-block: 2px solid var(--line);
+    background: var(--bg-raise);
+  }
+
+  .skill-bars {
+    display: grid;
+    gap: 1.8rem;
+    margin-top: 2.5rem;
+  }
+
+  .skill-bar {
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--surface);
+    padding: 1.3rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .skill-bar-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-bar-head span {
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: var(--display);
+  }
+
+  .skill-bar-head b {
+    color: var(--accent);
+    font-size: 1rem;
     font-weight: 800;
   }
 
-  .skill-columns h3 {
-    margin-top: 6rem;
+  .skill-bar-head b::after {
+    content: '%';
+    font-size: 0.7rem;
+    margin-left: 0.1rem;
   }
 
-  .skill-columns p {
+  .skill-bar-track {
+    width: 100%;
+    height: 12px;
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--bg-raise);
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: none;
+  }
+
+  .skill-bar p {
+    margin: 0.7rem 0 0;
     color: var(--ink-soft);
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 500;
   }
 
-  .timeline-title h2 {
-    color: var(--ink);
+  /* Honors wall — certificate gallery */
+  .honors-wall {
+    padding-block: var(--section);
   }
 
-  .timeline ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .honors-head {
+    margin-bottom: 3rem;
   }
 
-  .timeline li {
+  .honors-head h2 {
+    margin-bottom: 0.8rem;
+  }
+
+  .honors-head .lede {
+    color: var(--ink-soft);
+  }
+
+  .cert-grid {
     display: grid;
-    grid-template-columns: 8rem 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    margin-bottom: 1rem;
-    padding: 1.4rem;
   }
 
-  .timeline time {
+  .cert-card {
+    margin: 0;
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+
+  .cert-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow);
+  }
+
+  .cert-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 210 / 297;
+    object-fit: cover;
+    background: var(--surface-2);
+    border-bottom: 2px solid var(--line);
+  }
+
+  .cert-card figcaption {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1rem 1.1rem 1.2rem;
+  }
+
+  .cert-level {
     color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .cert-name {
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .cert-year {
+    color: var(--ink-faint);
     font-size: 0.72rem;
     font-weight: 700;
   }
 
-  .timeline h3 {
-    margin-bottom: 0.6rem;
-  }
-
-  .timeline p {
-    margin: 0;
-    color: var(--ink-soft);
-    font-weight: 500;
-  }
-
-  .honors-section {
-    border-block: 1px solid var(--line);
-    background: var(--bg-raise);
-  }
-
-  .honor-list p {
-    display: grid;
-    grid-template-columns: 7rem 1fr;
-    gap: 1rem;
-    margin: 0 0 0.75rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    padding: 1rem;
-  }
-
-  .honor-list b {
-    color: var(--accent);
-    font-size: 0.72rem;
-    font-weight: 800;
-  }
-
-  .honor-list span {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  @media (max-width: 800px) {
-    .about-hero,
-    .profile-grid,
-    .timeline,
-    .honors-grid {
-      min-height: auto;
+  @media (max-width: 900px) {
+    .signature {
       grid-template-columns: 1fr;
     }
 
-    .skill-columns {
+    .sig-stats {
+      grid-template-rows: auto;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .story {
+      grid-template-columns: 1fr;
+    }
+
+    .cert-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (max-width: 520px) {
-    .skill-columns {
+    .cert-grid {
       grid-template-columns: 1fr;
     }
 
-    .skill-columns article {
-      min-height: auto;
-    }
-
-    .skill-columns h3 {
-      margin-top: 3rem;
-    }
-
-    .timeline li,
-    .honor-list p {
+    .sig-stats {
       grid-template-columns: 1fr;
-      gap: 0.5rem;
     }
   }
 </style>

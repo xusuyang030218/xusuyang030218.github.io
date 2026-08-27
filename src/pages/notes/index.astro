@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { notes } from '../../data/notes';
+
+const sorted = [...notes].sort((a, b) => b.date.localeCompare(a.date));
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': new URL('/notes/', Astro.site).href,
+  name: '工程随笔',
+  description: '记录真实项目中的排障、实现取舍与交付判断。',
+  inLanguage: 'zh-CN',
+  author: { '@id': 'https://xusuyang030218.github.io/#person' },
+  blogPost: sorted.map((note) => ({
+    '@type': 'BlogPosting',
+    headline: note.title,
+    datePublished: note.date,
+    url: new URL(`/notes/${note.slug}/`, Astro.site).href
+  }))
+};
+---
+
+<BaseLayout title="工程随笔" description="徐苏洋的工程随笔：遗留系统排障、Agent 降级设计与原型验证方法，全部来自真实项目经历。">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(listSchema)} />
+
+  <header class="notes-hero container">
+    <p class="kicker">工程随笔</p>
+    <h1>把做过的事<br />写清楚。</h1>
+    <p class="lede">每篇都来自真实项目：一次提交、一段实现、一个原型。不写没做过的经验。</p>
+  </header>
+
+  <section class="container note-list" aria-label="随笔列表">
+    {sorted.map((note, index) => (
+      <article class="note-row reveal">
+        <a href={`/notes/${note.slug}/`}>
+          <span class="note-index mono">{String(index + 1).padStart(2, '0')}</span>
+          <div class="note-main">
+            <div class="note-meta mono">
+              <time datetime={note.date}>{note.date}</time>
+              <span>{note.readingTime}</span>
+            </div>
+            <h2>{note.title}</h2>
+            <p>{note.summary}</p>
+            <div class="tags">
+              {note.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+          <span class="note-arrow" aria-hidden="true">↗</span>
+        </a>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .notes-hero {
+    display: grid;
+    align-content: end;
+    padding-block: clamp(4rem, 10vw, 7rem) 3rem;
+  }
+
+  .notes-hero h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .note-list {
+    padding-bottom: var(--section);
+  }
+
+  .note-row {
+    border-top: 2px solid var(--line);
+  }
+
+  .note-row:last-child {
+    border-bottom: 2px solid var(--line);
+  }
+
+  .note-row a {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr) 2rem;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    text-decoration: none;
+    transition: background-color 140ms ease, padding-inline 140ms ease;
+  }
+
+  .note-row a:hover {
+    background: var(--accent-soft);
+    padding-inline: 1rem;
+  }
+
+  .note-index {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--ink-faint);
+    font-size: 0.72rem;
+  }
+
+  .note-main h2 {
+    margin: 0 0 0.7rem;
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  }
+
+  .note-main p {
+    margin-bottom: 1rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  .note-arrow {
+    color: var(--accent);
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 640px) {
+    .note-row a {
+      grid-template-columns: 1fr 1.5rem;
+    }
+
+    .note-index {
+      display: none;
+    }
+  }
+</style>

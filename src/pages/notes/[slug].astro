@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { notes, type Note } from '../../data/notes';
+
+export function getStaticPaths() {
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note }
+  }));
+}
+
+interface Props {
+  note: Note;
+}
+
+const { note } = Astro.props;
+const sorted = [...notes].sort((a, b) => b.date.localeCompare(a.date));
+const currentIndex = sorted.findIndex((item) => item.slug === note.slug);
+const nextNote = sorted[(currentIndex + 1) % sorted.length];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': new URL(`/notes/${note.slug}/`, Astro.site).href,
+  headline: note.title,
+  description: note.summary,
+  datePublished: note.date,
+  dateModified: note.date,
+  inLanguage: 'zh-CN',
+  keywords: note.tags.join(', '),
+  url: new URL(`/notes/${note.slug}/`, Astro.site).href,
+  author: { '@id': 'https://xusuyang030218.github.io/#person' },
+  publisher: { '@id': 'https://xusuyang030218.github.io/#person' }
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: '随笔', item: new URL('/notes/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: note.title }
+  ]
+};
+---
+
+<BaseLayout title={note.title} description={note.summary}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <article>
+    <header class="note-hero container">
+      <a class="back mono" href="/notes/">返回随笔</a>
+      <div class="note-meta mono">
+        <time datetime={note.date}>{note.date}</time>
+        <span>{note.readingTime}</span>
+      </div>
+      <h1>{note.title}</h1>
+      <p class="note-summary">{note.summary}</p>
+      <div class="tags">
+        {note.tags.map((tag) => <span class="tag">{tag}</span>)}
+      </div>
+    </header>
+
+    <div class="note-body container">
+      {note.paragraphs.map((block) => {
+        if (block.type === 'heading') return <h2>{block.value}</h2>;
+        if (block.type === 'text') return <p>{block.value}</p>;
+        if (block.type === 'quote') return <blockquote>{block.value}</blockquote>;
+        if (block.type === 'list') {
+          return (
+            <ul>
+              {block.value.map((item) => <li>{item}</li>)}
+            </ul>
+          );
+        }
+        return (
+          <figure class="note-code">
+            <figcaption class="mono">{block.caption}</figcaption>
+            <pre tabindex="0"><code>{block.value}</code></pre>
+          </figure>
+        );
+      })}
+
+      {note.related && (
+        <a class="related" href={note.related.href}>
+          <span class="mono">相关案例</span>
+          <strong>{note.related.label}</strong>
+          <b aria-hidden="true">↗</b>
+        </a>
+      )}
+    </div>
+
+    <nav class="next-note" aria-label="下一篇随笔">
+      <a class="container" href={`/notes/${nextNote.slug}/`}>
+        <span class="mono">下一篇</span>
+        <strong>{nextNote.title}</strong>
+        <b aria-hidden="true">↗</b>
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .note-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem) 2.5rem;
+    border-bottom: 2px solid var(--line);
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 2.5rem;
+    color: var(--ink-soft);
+    font-size: 0.75rem;
+    text-decoration: none;
+  }
+
+  .back:hover {
+    color: var(--accent);
+  }
+
+  .note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+  }
+
+  .note-hero h1 {
+    max-width: 20ch;
+    margin-bottom: 1.2rem;
+    font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  }
+
+  .note-summary {
+    max-width: 58ch;
+    margin-bottom: 1.4rem;
+    color: var(--ink-soft);
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+  }
+
+  .note-body {
+    max-width: 46rem;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--section);
+  }
+
+  .note-body h2 {
+    margin: 2.8rem 0 1rem;
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+  }
+
+  .note-body h2:first-child {
+    margin-top: 0;
+  }
+
+  .note-body p {
+    margin-bottom: 1.3rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  .note-body ul {
+    margin: 0 0 1.6rem;
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .note-body li {
+    margin-bottom: 0.6rem;
+    line-height: 1.7;
+  }
+
+  blockquote {
+    margin: 0 0 1.8rem;
+    border-left: 4px solid var(--accent);
+    padding: 0.6rem 0 0.6rem 1.2rem;
+    color: var(--ink);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .note-code {
+    margin: 0 0 1.8rem;
+    border: 2px solid var(--line);
+    box-shadow: var(--shadow);
+    background: var(--code-bg);
+  }
+
+  .note-code figcaption {
+    border-bottom: 1px solid rgba(229, 229, 229, 0.2);
+    padding: 0.6rem 1rem;
+    color: rgba(229, 229, 229, 0.7);
+    font-size: 0.7rem;
+    overflow-wrap: anywhere;
+  }
+
+  pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: clamp(1rem, 3vw, 1.6rem);
+    color: var(--code-ink);
+    font: 0.8rem/1.75 var(--mono);
+    tab-size: 2;
+  }
+
+  .related {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 2.5rem;
+    border: 2px solid var(--line);
+    box-shadow: var(--shadow);
+    background: var(--surface);
+    padding: 1.2rem 1.4rem;
+    text-decoration: none;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+
+  .related:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .related span {
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  .related strong {
+    font-size: 1rem;
+  }
+
+  .next-note {
+    border-top: 2px solid var(--line);
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .next-note a {
+    display: grid;
+    grid-template-columns: 8rem 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    min-height: 10rem;
+    text-decoration: none;
+  }
+
+  .next-note span {
+    color: var(--highlight);
+    font-size: 0.72rem;
+  }
+
+  .next-note strong {
+    font-size: clamp(1.3rem, 3vw, 2.4rem);
+    line-height: 1.15;
+  }
+
+  .next-note b {
+    color: var(--highlight);
+    font-size: 1.6rem;
+  }
+
+  @media (max-width: 640px) {
+    .next-note a {
+      grid-template-columns: 1fr auto;
+      gap: 0.8rem;
+      padding-block: 2rem;
+    }
+
+    .next-note span {
+      grid-column: 1 / -1;
+    }
+
+    .related {
+      grid-template-columns: 1fr auto;
+    }
+
+    .related span {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -28,7 +28,7 @@ const listSchema = {
   <header class="archive-hero container">
     <p class="kicker">项目集萃</p>
     <h1>项目归档</h1>
-    <p class="lede">按问题、决策与证据组织项目。精确指标未完成原始报告核验时，会明确标记边界。</p>
+    <p class="lede">按问题与决策组织项目。</p>
   </header>
 
   <nav class="filter-bar container" aria-label="项目分类">
@@ -39,7 +39,7 @@ const listSchema = {
   </nav>
 
   <section class="container archive-list" aria-live="polite">
-    <div class="archive-grid">
+    <div class="archive-grid" data-stagger>
       {projects.map((project, index) => (
         <div data-category={project.category}>
           <ProjectRow project={project} index={index} priority={index === 0} />
@@ -52,11 +52,11 @@ const listSchema = {
   <section class="section container archive-note">
     <div class="reveal">
       <p class="kicker">展示之则</p>
-      <h2>证据优先于包装。</h2>
+      <h2>实事求是。</h2>
     </div>
     <div class="reveal">
-      <p>企业项目只公开可授权的名称、职责、技术路径与脱敏成果，不展示客户数据、内部地址和源代码。</p>
-      <p>公开仓库会标出链接。仍在补证据的性能数字不会被包装成正式结论。</p>
+      <p>企业项目只公开可授权的名称、职责、技术路径与脱敏成果。</p>
+      <p>公开仓库会标出链接。</p>
     </div>
   </section>
 </BaseLayout>
@@ -101,24 +101,26 @@ const listSchema = {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    border-block: 1px solid var(--line);
-    padding: 1rem 0;
+    border-block: 2px solid var(--line);
+    padding: 1.2rem 0;
   }
 
   .filter-bar button {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-pill);
-    background: transparent;
-    color: var(--ink-soft);
+    border: 2px solid var(--line);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
     padding: 0.5rem 0.9rem;
-    font: 800 0.78rem var(--mono);
+    font: 700 0.78rem var(--mono);
     cursor: pointer;
-    transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+    box-shadow: var(--shadow-sm);
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
   }
 
   .filter-bar button:hover {
-    color: var(--ink);
-    border-color: var(--line-strong);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow);
+    background: var(--highlight-soft);
   }
 
   .filter-bar button[aria-pressed="true"] {
@@ -147,19 +149,20 @@ const listSchema = {
   }
 
   .empty-state {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border: 2px solid var(--line);
+    border-radius: 0;
     background: var(--surface);
     padding: 2rem;
     color: var(--ink-soft);
     font-weight: 600;
+    box-shadow: var(--shadow-sm);
   }
 
   .archive-note {
     display: grid;
     grid-template-columns: 0.7fr 1.3fr;
     gap: 3rem;
-    border-top: 1px solid var(--line);
+    border-top: 2px solid var(--line);
   }
 
   .archive-note h2 {
