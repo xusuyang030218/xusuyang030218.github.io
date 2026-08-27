@@ -11,15 +11,16 @@ const links = [
 <header class="site-header">
   <nav class="nav container" aria-label="主导航">
     <a class="brand" href="/">
-      徐苏洋
-      <span>ENGINEERING NOTES</span>
+      <span class="brand-mark" aria-hidden="true">徐</span>
+      <span>徐苏洋</span>
+      <span class="brand-tag">ENGINEERING</span>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">菜单</button>
     <div class="nav-links" id="nav-links" data-open="false">
       {links.map((link) => (
         <a href={link.href} aria-current={pathname === link.href ? 'page' : undefined}>{link.label}</a>
       ))}
-      <a href="mailto:2307456010@qq.com">联系</a>
+      <a class="nav-cta" href="mailto:2307456010@qq.com">联系 ↗</a>
     </div>
   </nav>
 </header>

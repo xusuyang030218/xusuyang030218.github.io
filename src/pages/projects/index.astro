@@ -21,17 +21,22 @@ const categories = Object.entries(categoryLabels) as [ProjectCategory, string][]
   </nav>
 
   <section class="container archive-list" aria-live="polite">
-    {projects.map((project, index) => (
-      <div data-category={project.category}>
-        <ProjectRow project={project} index={index} />
-      </div>
-    ))}
+    <div class="archive-grid">
+      {projects.map((project, index) => (
+        <div data-category={project.category}>
+          <ProjectRow project={project} index={index} />
+        </div>
+      ))}
+    </div>
     <p class="empty-state" hidden>当前分类暂无项目。</p>
   </section>
 
   <section class="section container archive-note">
-    <h2>展示之则</h2>
-    <div>
+    <div class="reveal">
+      <p class="kicker">展示之则</p>
+      <h2>证据优先于包装。</h2>
+    </div>
+    <div class="reveal">
       <p>企业项目只公开可授权的名称、职责、技术路径与脱敏成果，不展示客户数据、内部地址和源代码。</p>
       <p>公开仓库会标出链接。仍在补证据的性能数字不会被包装成正式结论。</p>
     </div>
@@ -61,51 +66,47 @@ const categories = Object.entries(categoryLabels) as [ProjectCategory, string][]
 <style>
   .archive-hero {
     display: grid;
-    min-height: 55dvh;
+    min-height: 50dvh;
     align-content: end;
-    padding-block: clamp(5rem, 12vw, 9rem) 4rem;
+    padding-block: clamp(4rem, 10vw, 8rem) 3rem;
   }
 
   .archive-hero h1 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
   }
 
-  .archive-hero h1 {
-    width: fit-content;
-    border: var(--border);
-    background: var(--yellow);
-    box-shadow: var(--shadow);
-    padding: 0.2rem 1.2rem 0.4rem;
-    transform: rotate(-0.6deg);
+  .archive-hero .lede {
+    max-width: 42rem;
   }
 
   .filter-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.7rem;
-    border-block: var(--border);
-    background: var(--surface);
-    padding: 1rem;
+    gap: 0.6rem;
+    border-block: 1px solid var(--line);
+    padding: 1rem 0;
   }
 
   .filter-bar button {
-    border: var(--border);
-    background: var(--surface);
-    color: var(--ink);
-    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink-soft);
+    padding: 0.5rem 0.9rem;
     font: 800 0.78rem var(--mono);
     cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: transform 90ms ease, box-shadow 90ms ease, background-color 90ms ease;
+    transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
   }
 
   .filter-bar button:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--ink);
+    color: var(--ink);
+    border-color: var(--line-strong);
   }
 
   .filter-bar button[aria-pressed="true"] {
-    background: var(--yellow);
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
   }
 
   .filter-bar span {
@@ -117,32 +118,49 @@ const categories = Object.entries(categoryLabels) as [ProjectCategory, string][]
     padding-block: 3rem;
   }
 
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
   [hidden] {
     display: none !important;
   }
 
   .empty-state {
-    border: var(--border);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
     padding: 2rem;
     color: var(--ink-soft);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .archive-note {
     display: grid;
     grid-template-columns: 0.7fr 1.3fr;
     gap: 3rem;
-    border-top: var(--border);
+    border-top: 1px solid var(--line);
   }
 
   .archive-note h2 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(2rem, 4vw, 3.4rem);
   }
 
-  .archive-note div {
+  .archive-note div:last-child {
     color: var(--ink-soft);
-    font-weight: 600;
+    font-weight: 500;
+  }
+
+  .archive-note p {
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 800px) {
+    .archive-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 700px) {

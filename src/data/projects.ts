@@ -2,6 +2,7 @@ export type ProjectCategory = 'enterprise' | 'agent' | 'backend' | 'iot' | 'tool
 
 export interface Project {
   slug: string;
+  image: string;
   title: string;
   shortTitle: string;
   category: ProjectCategory;
@@ -26,6 +27,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'dts-dashboard',
+    image: '/evidence/dts-evidence.webp',
     title: 'DTS Dashboard 版本升级与前端重构',
     shortTitle: 'DTS Dashboard',
     category: 'enterprise',
@@ -74,6 +76,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'nexus-agent',
+    image: '/evidence/nexus-evidence.webp',
     title: 'NexusAgent 企业智能体平台',
     shortTitle: 'NexusAgent',
     category: 'agent',
@@ -114,6 +117,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'workbuddy',
+    image: '/evidence/wb-dashboard.webp',
     title: 'WorkBuddy 科研写作伙伴',
     shortTitle: 'WorkBuddy',
     category: 'agent',
@@ -154,6 +158,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'smart-meeting',
+    image: '/evidence/meeting-dashboard.webp',
     title: '灵犀会议室',
     shortTitle: '灵犀会议室',
     category: 'backend',
@@ -194,6 +199,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'refactor-compass',
+    image: '/evidence/public-code-evidence.webp',
     title: 'Refactor Compass 重构罗盘',
     shortTitle: '重构罗盘',
     category: 'tooling',
@@ -234,6 +240,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'smart-mine',
+    image: '/evidence/mine-dashboard.webp',
     title: '煤矿全域智能监管平台',
     shortTitle: '矿智未来',
     category: 'iot',
@@ -273,6 +280,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'fall-detection',
+    image: '/evidence/changyao-monitor.webp',
     title: '长耀健行助手',
     shortTitle: '长耀健行',
     category: 'iot',
@@ -311,6 +319,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'agent-skills',
+    image: '/evidence/projects.webp',
     title: 'Agent Skills 工程工具集',
     shortTitle: 'Agent Skills',
     category: 'tooling',

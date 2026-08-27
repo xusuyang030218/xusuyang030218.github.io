@@ -2,33 +2,50 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectRow from '../components/ProjectRow.astro';
 import { featuredProjects } from '../data/projects';
+
+const marqueeItems = ['企业前端重构', 'LLM 应用', 'RAG 检索', 'AI Agent', 'Java 全栈', '证据驱动交付', '遗留系统治理', 'Agent Skills'];
 ---
 
 <BaseLayout title="徐苏洋" description="徐苏洋的开发者作品站，记录企业前端重构、AI Agent、RAG、Java 全栈与自研 Agent Skills。">
   <section class="hero container">
     <div class="hero-copy">
       <p class="kicker">Software · Agent · Refactoring</p>
-      <h1>把复杂系统<br /><em>做成证据。</em></h1>
+      <h1>把复杂系统<br /><span class="accent">做成证据。</span></h1>
       <p class="hero-lede">从企业前端重构到 Agent 工程，记录问题、决策与可验证交付。</p>
       <div class="hero-actions">
         <a class="button" href="/projects/">查看项目</a>
         <a class="button secondary" href="mailto:2307456010@qq.com">发送邮件</a>
       </div>
     </div>
-    <aside class="hero-plate" aria-label="个人概览">
-      <div class="portrait-frame">
-        <img src="/portrait.webp" width="720" height="720" alt="徐苏洋的证件照头像" fetchpriority="high" />
-      </div>
+    <aside class="hero-plate" aria-label="基本信息">
+      <p class="plate-name mono">PROFILE</p>
       <dl>
-        <div><dt>当前身份</dt><dd>2027 届软件工程本科生</dd></div>
-        <div><dt>工程方向</dt><dd>LLM 应用 · Java 全栈 · 前端重构</dd></div>
-        <div><dt>公开成果</dt><dd>8 个案例 · 30 余项竞赛成果</dd></div>
+        <div><dt>身份</dt><dd>2027 届软件工程本科生</dd></div>
+        <div><dt>院校</dt><dd>大连东软信息学院</dd></div>
+        <div><dt>方向</dt><dd>LLM 应用 · Java 全栈 · 前端重构</dd></div>
+        <div><dt>成果</dt><dd>8 个案例 · 30 余项竞赛获奖</dd></div>
       </dl>
+      <div class="plate-links">
+        <a href="mailto:2307456010@qq.com">邮箱</a>
+        <a href="https://github.com/xusuyang030218" rel="me">GitHub</a>
+        <a href="https://gitee.com/anhuiwuhu_xsy" rel="me">Gitee</a>
+      </div>
     </aside>
   </section>
 
-  <section class="signal-strip" aria-label="核心能力">
-    <div class="container signal-grid">
+  <section class="marquee" aria-label="关注方向">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        {marqueeItems.map((item) => <><span>{item}</span><i aria-hidden="true">·</i></>)}
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        {marqueeItems.map((item) => <><span>{item}</span><i aria-hidden="true">·</i></>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="核心数据">
+    <div class="container stats-grid">
       <div><strong>40+</strong><span>DTS 可归属功能与修复提交</span></div>
       <div><strong>20</strong><span>企业项目测试用例</span></div>
       <div><strong>18</strong><span>WorkBuddy 原型迭代</span></div>
@@ -36,12 +53,12 @@ import { featuredProjects } from '../data/projects';
     </div>
   </section>
 
-  <section class="section container thesis reveal">
-    <div>
+  <section class="section container thesis">
+    <div class="thesis-head reveal">
       <p class="kicker">行事之纲</p>
       <h2>比“会多少技术”更重要的，是知道何时相信证据。</h2>
     </div>
-    <div class="thesis-notes">
+    <div class="thesis-notes reveal">
       <p>我关注模型能力进入真实业务后的工程问题：权限、审计、流式输出、失败降级、数据边界和交付验证。</p>
       <p>面对遗留系统，我先建立行为基线，再决定修复、重构或迁移。所有精确指标都应该能追溯到脚本、环境和报告。</p>
     </div>
@@ -49,29 +66,31 @@ import { featuredProjects } from '../data/projects';
 
   <section class="section projects-section">
     <div class="container">
-      <div class="section-heading">
-        <p class="kicker">代表之作</p>
-        <h2>项目不是技术清单，是一连串有取舍的决定。</h2>
-        <a href="/projects/">查看全部项目</a>
+      <div class="section-heading reveal">
+        <div>
+          <p class="kicker">代表之作</p>
+          <h2>项目不是技术清单，是一连串有取舍的决定。</h2>
+        </div>
+        <a class="button secondary" href="/projects/">查看全部项目</a>
       </div>
-      <div class="project-list">
+      <div class="project-grid">
         {featuredProjects.map((project, index) => <ProjectRow project={project} index={index} />)}
       </div>
     </div>
   </section>
 
-  <section class="section container dts-feature reveal">
-    <div class="dts-title">
+  <section class="section container dts-feature">
+    <div class="dts-title reveal">
       <span class="mono">CASE / DTS DASHBOARD</span>
       <h2>版本升级开发<br />与前端重构</h2>
     </div>
-    <div class="flow-diagram" aria-label="DTS 重构流程">
-      <div><b>01</b><span>复现</span><small>用户行为与数据样本</small></div>
-      <div><b>02</b><span>定位</span><small>请求、状态、映射与 DOM</small></div>
-      <div><b>03</b><span>重构</span><small>收敛双链路与组件边界</small></div>
-      <div><b>04</b><span>验证</span><small>回归、打包与必要时回退</small></div>
+    <div class="flow-diagram reveal" aria-label="DTS 重构流程">
+      <div><b class="mono">01</b><span>复现</span><small>用户行为与数据样本</small></div>
+      <div><b class="mono">02</b><span>定位</span><small>请求、状态、映射与 DOM</small></div>
+      <div><b class="mono">03</b><span>重构</span><small>收敛双链路与组件边界</small></div>
+      <div><b class="mono">04</b><span>验证</span><small>回归、打包与必要时回退</small></div>
     </div>
-    <div class="dts-copy">
+    <div class="dts-copy reveal">
       <p>在 Vue 2、Element UI、ECharts 与 bootstrapTable 构成的遗留系统中，我处理的不是单一页面，而是筛选、导出、引用、图表和表格之间的完整数据路径。</p>
       <a class="button secondary" href="/projects/dts-dashboard/">阅读案例</a>
     </div>
@@ -85,16 +104,16 @@ import { featuredProjects } from '../data/projects';
         <p class="lede">从遗留系统重构、人工代码检视到文档摄取与 E2E 测试，每个 Skill 都明确输入、步骤、证据与失败边界。</p>
       </div>
       <div class="skill-ledger reveal">
-        <a href="/projects/refactor-compass/"><span>Refactor Compass</span><small>遗留系统现代化</small><b>01</b></a>
-        <a href="/projects/agent-skills/"><span>Diff Review Report</span><small>人工代码检视</small><b>02</b></a>
-        <a href="/projects/agent-skills/"><span>Document Intake</span><small>多格式文档摄取</small><b>03</b></a>
-        <a href="/projects/agent-skills/"><span>Test Workflow</span><small>用例生成与执行</small><b>04</b></a>
+        <a href="/projects/refactor-compass/"><span>Refactor Compass</span><small>遗留系统现代化</small><b class="mono">01</b></a>
+        <a href="/projects/agent-skills/"><span>Diff Review Report</span><small>人工代码检视</small><b class="mono">02</b></a>
+        <a href="/projects/agent-skills/"><span>Document Intake</span><small>多格式文档摄取</small><b class="mono">03</b></a>
+        <a href="/projects/agent-skills/"><span>Test Workflow</span><small>用例生成与执行</small><b class="mono">04</b></a>
       </div>
     </div>
   </section>
 
-  <section class="section container closing reveal">
-    <div>
+  <section class="section container closing">
+    <div class="closing-copy reveal">
       <p class="mono">OPEN TO INTERNSHIP & COLLABORATION</p>
       <h2>正在寻找能把 AI 与工程质量同时当真的团队。</h2>
     </div>
@@ -103,132 +122,177 @@ import { featuredProjects } from '../data/projects';
 </BaseLayout>
 
 <style>
+  /* Hero — asymmetric split */
   .hero {
     display: grid;
-    min-height: calc(100dvh - 74px);
-    grid-template-columns: minmax(0, 1.45fr) minmax(17rem, 0.55fr);
-    gap: clamp(2rem, 6vw, 6rem);
+    min-height: calc(100dvh - 68px);
+    grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.5fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
     align-items: center;
-    padding-block: clamp(3rem, 8vh, 6rem);
+    padding-block: clamp(3rem, 7vh, 5.5rem);
   }
 
   .hero h1 {
-    max-width: 10ch;
-    margin-bottom: 1.5rem;
+    max-width: 12ch;
+    margin-bottom: 1.4rem;
   }
 
-  .hero h1 em {
-    display: inline-block;
-    color: var(--ink);
-    font-style: normal;
-    line-height: 1.1;
-    padding: 0 0.4rem 0.12rem;
-    border: var(--border);
-    background: var(--yellow);
-    box-shadow: var(--shadow);
-    transform: rotate(-1.5deg);
+  .hero h1 .accent {
+    color: var(--accent);
   }
 
   .hero-lede {
-    max-width: 27rem;
+    max-width: 30rem;
     color: var(--ink-soft);
-    font-size: clamp(1.05rem, 2vw, 1.3rem);
-    font-weight: 600;
+    font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+    font-weight: 500;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.9rem;
+    gap: 0.8rem;
     margin-top: 2rem;
   }
 
   .hero-plate {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: var(--border);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow);
-    padding: 1.4rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
   }
 
-  .portrait-frame {
-    position: relative;
-    width: min(100%, 18rem);
-    aspect-ratio: 1;
-    margin-bottom: 1.6rem;
-    border: var(--border);
-    background: var(--blue);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    filter: contrast(1.04);
+  .plate-name {
+    margin-bottom: 1.2rem;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
   }
 
-  .portrait-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  dl {
+  .hero-plate dl {
     margin: 0;
   }
 
-  dl div {
-    border-top: var(--border-thin);
-    padding: 0.8rem 0;
+  .hero-plate dl div {
+    border-top: 1px solid var(--line);
+    padding: 0.85rem 0;
   }
 
-  dt {
-    color: var(--ink-soft);
+  .hero-plate dt {
+    color: var(--ink-faint);
     font-family: var(--mono);
     font-size: 0.68rem;
     font-weight: 700;
   }
 
-  dd {
-    margin: 0.18rem 0 0;
-    font-size: 0.92rem;
+  .hero-plate dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .plate-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+  }
+
+  .plate-links a {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    padding: 0.3rem 0.7rem;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 160ms ease, border-color 160ms ease;
+  }
+
+  .plate-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Marquee */
+  .marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.9rem 1rem;
+    white-space: nowrap;
+  }
+
+  .marquee-group span {
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
     font-weight: 800;
   }
 
-  .signal-strip {
-    border-block: var(--border);
-    background: var(--ink);
-    color: var(--white);
+  .marquee-group i {
+    font-style: normal;
+    opacity: 0.5;
   }
 
-  .signal-grid {
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Stats */
+  .stats {
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-raise);
+  }
+
+  .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .signal-grid div {
+  .stats-grid div {
     display: grid;
-    min-height: 8.5rem;
+    min-height: 8rem;
     align-content: center;
-    border-left: var(--border-thin);
-    padding: 1.2rem;
+    border-left: 1px solid var(--line);
+    padding: 1.4rem;
   }
 
-  .signal-grid div:last-child {
-    border-right: var(--border-thin);
+  .stats-grid div:last-child {
+    border-right: 1px solid var(--line);
   }
 
-  .signal-grid strong {
-    color: var(--yellow);
-    font: 900 clamp(2rem, 4vw, 3.6rem) var(--mono);
+  .stats-grid strong {
+    color: var(--accent);
+    font: 800 clamp(2rem, 4vw, 3.4rem) var(--mono);
+    letter-spacing: -0.02em;
     line-height: 1;
   }
 
-  .signal-grid span {
+  .stats-grid span {
     margin-top: 0.6rem;
-    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
     font-weight: 600;
   }
 
+  /* Thesis */
   .thesis {
     display: grid;
     grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.6fr);
@@ -241,53 +305,58 @@ import { featuredProjects } from '../data/projects';
   }
 
   .thesis-notes {
-    border-left: 8px solid var(--blue);
+    border-left: 2px solid var(--accent);
     padding-left: 1.4rem;
     color: var(--ink-soft);
-    font-weight: 600;
+    font-weight: 500;
   }
 
+  .thesis-notes p {
+    margin-bottom: 1rem;
+  }
+
+  .thesis-notes p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Projects */
   .projects-section {
-    background: var(--blue-soft);
-    border-block: var(--border);
+    border-block: 1px solid var(--line);
+    background: var(--bg-raise);
   }
 
   .section-heading {
-    display: grid;
-    max-width: 54rem;
-    margin-bottom: clamp(3rem, 7vw, 6rem);
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
   }
 
   .section-heading h2 {
-    margin-bottom: 1.5rem;
+    max-width: 22ch;
+    margin-bottom: 0;
   }
 
-  .section-heading > a {
-    width: fit-content;
-    border: var(--border);
-    background: var(--surface);
-    padding: 0.5rem 0.9rem;
-    color: var(--ink);
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    font-weight: 800;
-    text-decoration: none;
-    box-shadow: var(--shadow-sm);
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
   }
 
+  /* DTS feature */
   .dts-feature {
     display: grid;
-    grid-template-columns: 0.75fr 1.25fr;
+    grid-template-columns: 0.8fr 1.2fr;
     gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
   }
 
-  .dts-title span {
-    border: var(--border-thin);
-    background: var(--yellow);
-    padding: 0.2rem 0.5rem;
-    color: var(--ink);
+  .dts-title .mono {
+    color: var(--accent);
     font-size: 0.72rem;
     font-weight: 800;
+    letter-spacing: 0.1em;
   }
 
   .dts-title h2 {
@@ -297,49 +366,40 @@ import { featuredProjects } from '../data/projects';
   .flow-diagram {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 0.8rem;
   }
 
   .flow-diagram div {
     display: grid;
-    min-height: 15rem;
+    min-height: 13rem;
     align-content: space-between;
-    border: var(--border);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow);
     padding: 1rem;
+    transition: border-color 220ms ease, transform 220ms ease;
   }
 
-  .flow-diagram div:nth-child(2) {
-    background: var(--yellow);
-  }
-
-  .flow-diagram div:nth-child(3) {
-    background: var(--gray);
-  }
-
-  .flow-diagram div:nth-child(4) {
-    background: var(--blue);
-    color: var(--white);
+  .flow-diagram div:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
   }
 
   .flow-diagram b {
-    font: 800 0.75rem var(--mono);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 800;
   }
 
   .flow-diagram span {
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    font-weight: 900;
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    font-weight: 800;
   }
 
   .flow-diagram small {
     color: var(--ink-soft);
-    font-size: 0.68rem;
-    font-weight: 700;
-  }
-
-  .flow-diagram div:nth-child(4) small {
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    font-weight: 500;
   }
 
   .dts-copy {
@@ -352,13 +412,13 @@ import { featuredProjects } from '../data/projects';
 
   .dts-copy p {
     color: var(--ink-soft);
-    font-weight: 600;
+    font-weight: 500;
   }
 
+  /* Skills band */
   .skills-band {
-    border-block: var(--border);
-    background: var(--blue);
-    color: var(--white);
+    border-block: 1px solid var(--line);
+    background: var(--bg-raise);
   }
 
   .skills-layout {
@@ -369,17 +429,17 @@ import { featuredProjects } from '../data/projects';
 
   .skills-intro {
     position: sticky;
-    top: 2rem;
+    top: 6rem;
     align-self: start;
   }
 
   .skills-band .lede {
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--ink-soft);
   }
 
   .skill-ledger {
     display: grid;
-    gap: 1rem;
+    gap: 0.9rem;
   }
 
   .skill-ledger a {
@@ -387,34 +447,37 @@ import { featuredProjects } from '../data/projects';
     grid-template-columns: 1fr 1fr auto;
     gap: 1rem;
     align-items: center;
-    border: var(--border);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow);
     padding: 1.3rem 1.2rem;
     text-decoration: none;
-    transition: transform 90ms ease, box-shadow 90ms ease;
+    transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 200ms, background-color 200ms;
   }
 
   .skill-ledger a:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 8px 8px 0 var(--ink);
-    background: var(--yellow);
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    background: var(--surface-2);
   }
 
   .skill-ledger span {
-    font-size: 1.2rem;
-    font-weight: 900;
+    font-size: 1.15rem;
+    font-weight: 800;
   }
 
   .skill-ledger small {
     color: var(--ink-soft);
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .skill-ledger b {
-    font: 800 0.78rem var(--mono);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
   }
 
+  /* Closing */
   .closing {
     display: flex;
     align-items: end;
@@ -423,13 +486,16 @@ import { featuredProjects } from '../data/projects';
   }
 
   .closing h2 {
-    max-width: 18ch;
+    max-width: 20ch;
     margin-bottom: 0;
   }
 
-  .closing p {
-    font-size: 0.75rem;
+  .closing-copy .mono {
+    margin-bottom: 1rem;
+    color: var(--accent);
+    font-size: 0.72rem;
     font-weight: 800;
+    letter-spacing: 0.12em;
   }
 
   @media (max-width: 900px) {
@@ -444,17 +510,6 @@ import { featuredProjects } from '../data/projects';
       min-height: auto;
     }
 
-    .hero-plate {
-      display: grid;
-      grid-template-columns: 10rem 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-    }
-
-    .portrait-frame {
-      margin: 0;
-    }
-
     .dts-copy {
       grid-column: 1;
     }
@@ -462,24 +517,20 @@ import { featuredProjects } from '../data/projects';
     .skills-intro {
       position: static;
     }
+
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 680px) {
-    .hero-plate {
-      grid-template-columns: 1fr;
-    }
-
-    .portrait-frame {
-      width: 10rem;
-    }
-
-    .signal-grid {
+    .stats-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .signal-grid div:nth-child(3),
-    .signal-grid div:nth-child(4) {
-      border-top: var(--border-thin);
+    .stats-grid div:nth-child(3),
+    .stats-grid div:nth-child(4) {
+      border-top: 1px solid var(--line);
     }
 
     .flow-diagram {
@@ -487,13 +538,18 @@ import { featuredProjects } from '../data/projects';
     }
 
     .flow-diagram div {
-      min-height: 10rem;
+      min-height: 9rem;
     }
 
     .dts-copy,
     .closing {
       align-items: flex-start;
       flex-direction: column;
+    }
+
+    .section-heading {
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .skill-ledger a {
@@ -508,6 +564,12 @@ import { featuredProjects } from '../data/projects';
     .skill-ledger b {
       grid-column: 2;
       grid-row: 1 / 3;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
     }
   }
 </style>

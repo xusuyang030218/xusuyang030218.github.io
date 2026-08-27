@@ -4,23 +4,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="关于" description="关于徐苏洋：软件工程、LLM 应用、Java 全栈、企业前端重构与 Agent Skills 实践。">
   <header class="about-hero container">
-    <div>
+    <div class="about-title">
       <p class="kicker">关于</p>
-      <h1>软件工程学生，<br />也是证据驱动的开发者。</h1>
+      <h1>软件工程学生，<br /><span class="accent">也是证据驱动的开发者。</span></h1>
     </div>
     <div class="about-intro">
-      <img src="/portrait.webp" width="720" height="720" alt="徐苏洋的证件照头像" />
       <p>我关注大模型应用如何进入真实系统，也关心遗留代码、团队协作、测试和部署这些不够耀眼却决定交付质量的部分。</p>
     </div>
   </header>
 
-  <section class="section container profile-grid reveal">
-    <div class="profile-title">
+  <section class="section container profile-grid">
+    <div class="profile-title reveal">
       <p class="kicker">个人档案</p>
       <h2>徐苏洋</h2>
       <p class="mono">2027 届 · 软件工程</p>
     </div>
-    <div class="profile-copy">
+    <div class="profile-copy reveal">
       <p>就读于大连东软信息学院软件工程专业。实践方向覆盖 LLM 应用、RAG、Agent、Java 后端、前端可视化与工程化部署。</p>
       <p>在亚信科技担任前端开发实习生期间，参与 DTS Dashboard 版本升级开发与前端重构，以及数据资产计量计费平台的 React 开发、联调与测试。</p>
       <div class="contact-links">
@@ -36,22 +35,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="kicker">能力版图</p>
       <div class="skill-columns">
         <article>
-          <h2>01</h2>
+          <h2 class="mono">01</h2>
           <h3>大模型应用</h3>
           <p>RAG、LangChain、向量检索、重排、Prompt 工程、SSE、Agent 执行与评估。</p>
         </article>
         <article>
-          <h2>02</h2>
+          <h2 class="mono">02</h2>
           <h3>后端工程</h3>
           <p>Java、Spring Boot、MyBatis Plus、MySQL、Redis、Redisson、Kafka 与 Docker Compose。</p>
         </article>
         <article>
-          <h2>03</h2>
+          <h2 class="mono">03</h2>
           <h3>前端与重构</h3>
           <p>Vue 2/3、React、Element UI、Ant Design、ECharts，以及遗留系统问题定位与渐进式重构。</p>
         </article>
         <article>
-          <h2>04</h2>
+          <h2 class="mono">04</h2>
           <h3>Agent Skills</h3>
           <p>将重构、代码检视、文档摄取、测试与协作方法沉淀为可复用执行协议。</p>
         </article>
@@ -59,18 +58,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <section class="section container timeline reveal">
-    <div>
+  <section class="section container timeline">
+    <div class="timeline-title reveal">
       <p class="kicker">履历</p>
       <h2>经历</h2>
     </div>
     <ol>
-      <li>
-        <time>2026.06 至今</time>
+      <li class="reveal">
+        <time class="mono">2026.06 至今</time>
         <div><h3>亚信科技 · 前端开发实习生</h3><p>DTS Dashboard 版本升级与重构；计量计价平台 React 开发、联调与测试。</p></div>
       </li>
-      <li>
-        <time>2023 - 2027</time>
+      <li class="reveal">
+        <time class="mono">2023 - 2027</time>
         <div><h3>大连东软信息学院 · 软件工程</h3><p>班级排名 1/33，曾任极限编程社团社长与学习委员。</p></div>
       </li>
     </ol>
@@ -78,17 +77,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section honors-section">
     <div class="container honors-grid">
-      <div>
+      <div class="reveal">
         <p class="kicker">荣誉撷英</p>
         <h2>把竞赛能力转化为工程判断。</h2>
         <p class="lede">学校系统记录学科竞赛获奖 35 项次，其中国际级 1 项、国家级 13 项、省级 21 项。</p>
       </div>
-      <div class="honor-list">
-        <p><b>2025</b><span>美国大学生数学建模竞赛 Honorable Mention</span></p>
-        <p><b>2024 / 2025</b><span>蓝桥杯辽宁赛区 C/C++ 一等奖</span></p>
-        <p><b>2024 / 2025</b><span>蓝桥杯全国总决赛 C/C++ 三等奖</span></p>
-        <p><b>2025</b><span>全球校园人工智能算法精英大赛二等奖</span></p>
-        <p><b>2025</b><span>中软国际卓越杯大数据挑战赛一等奖</span></p>
+      <div class="honor-list reveal">
+        <p><b class="mono">2025</b><span>美国大学生数学建模竞赛 Honorable Mention</span></p>
+        <p><b class="mono">2024 / 2025</b><span>蓝桥杯辽宁赛区 C/C++ 一等奖</span></p>
+        <p><b class="mono">2024 / 2025</b><span>蓝桥杯全国总决赛 C/C++ 三等奖</span></p>
+        <p><b class="mono">2025</b><span>全球校园人工智能算法精英大赛二等奖</span></p>
+        <p><b class="mono">2025</b><span>中软国际卓越杯大数据挑战赛一等奖</span></p>
       </div>
     </div>
   </section>
@@ -97,8 +96,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
   .about-hero {
     display: grid;
-    min-height: calc(100dvh - 74px);
-    grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+    min-height: calc(100dvh - 68px);
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
     gap: clamp(3rem, 8vw, 8rem);
     align-items: center;
     padding-block: clamp(4rem, 10vw, 8rem);
@@ -106,30 +105,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .about-hero h1 {
     max-width: 13ch;
-    font-size: clamp(3rem, 7vw, 7rem);
+    font-size: clamp(3rem, 7vw, 6.6rem);
+  }
+
+  .about-hero h1 .accent {
+    color: var(--accent);
   }
 
   .about-intro {
-    border: var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
-  }
-
-  .about-intro img {
-    width: min(100%, 16rem);
-    aspect-ratio: 1;
-    object-fit: cover;
-    margin-bottom: 1.5rem;
-    border: var(--border);
-    background: var(--blue);
-    filter: contrast(1.04);
-  }
-
-  .about-intro p {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.6rem;
     color: var(--ink-soft);
-    font-size: 1.08rem;
-    font-weight: 600;
+    font-size: 1.12rem;
+    font-weight: 500;
   }
 
   .profile-grid,
@@ -142,17 +130,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .profile-title h2 {
     margin-bottom: 0.7rem;
-    width: fit-content;
-    border: var(--border);
-    background: var(--yellow);
-    box-shadow: var(--shadow-sm);
-    padding: 0 0.6rem;
+    color: var(--ink);
+  }
+
+  .profile-title .mono {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
   }
 
   .profile-copy {
     color: var(--ink-soft);
     font-size: 1.08rem;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .contact-links {
@@ -163,8 +153,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .skills-section {
-    border-block: var(--border);
-    background: var(--gray);
+    border-block: 1px solid var(--line);
+    background: var(--bg-raise);
   }
 
   .skill-columns {
@@ -174,33 +164,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .skill-columns article {
-    min-height: 22rem;
-    border: var(--border);
+    min-height: 21rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow);
-    padding: 1.2rem;
+    padding: 1.3rem;
+    transition: border-color 220ms ease, transform 220ms ease;
   }
 
-  .skill-columns article:nth-child(2) {
-    background: var(--yellow);
-  }
-
-  .skill-columns article:nth-child(3) {
-    background: var(--blue-soft);
+  .skill-columns article:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
   }
 
   .skill-columns h2 {
-    font: 800 0.78rem var(--mono);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
   }
 
   .skill-columns h3 {
-    margin-top: 7rem;
+    margin-top: 6rem;
   }
 
   .skill-columns p {
     color: var(--ink-soft);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
+  }
+
+  .timeline-title h2 {
+    color: var(--ink);
   }
 
   .timeline ol {
@@ -213,15 +207,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: grid;
     grid-template-columns: 8rem 1fr;
     gap: 1.5rem;
-    border: var(--border);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow-sm);
     margin-bottom: 1rem;
     padding: 1.4rem;
   }
 
   .timeline time {
-    font: 700 0.72rem var(--mono);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
   }
 
   .timeline h3 {
@@ -231,12 +227,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .timeline p {
     margin: 0;
     color: var(--ink-soft);
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .honors-section {
-    border-block: var(--border);
-    background: var(--yellow);
+    border-block: 1px solid var(--line);
+    background: var(--bg-raise);
   }
 
   .honor-list p {
@@ -244,20 +240,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     grid-template-columns: 7rem 1fr;
     gap: 1rem;
     margin: 0 0 0.75rem;
-    border: var(--border);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow-sm);
     padding: 1rem;
   }
 
   .honor-list b {
-    font: 800 0.72rem var(--mono);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 800;
   }
 
-  .principles div {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+  .honor-list span {
+    color: var(--ink);
+    font-weight: 600;
   }
 
   @media (max-width: 800px) {
@@ -269,15 +266,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       grid-template-columns: 1fr;
     }
 
-    .skill-columns,
-    .principles div {
+    .skill-columns {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (max-width: 520px) {
-    .skill-columns,
-    .principles div {
+    .skill-columns {
       grid-template-columns: 1fr;
     }
 
