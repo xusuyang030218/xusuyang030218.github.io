@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import EvidenceDossier from '../../components/EvidenceDossier.astro';
 import { projects, type Project } from '../../data/projects';
+import { evidenceBySlug } from '../../data/evidence';
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -16,6 +18,7 @@ interface Props {
 const { project } = Astro.props;
 const currentIndex = projects.findIndex((item) => item.slug === project.slug);
 const nextProject = projects[(currentIndex + 1) % projects.length];
+const dossier = evidenceBySlug[project.slug];
 ---
 
 <BaseLayout title={project.title} description={project.summary}>
@@ -75,6 +78,8 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
         </section>
       ))}
     </div>
+
+    {dossier && <EvidenceDossier evidence={dossier} projectTitle={project.title} />}
 
     <section class="container highlights reveal">
       <h2>项目摘记</h2>
