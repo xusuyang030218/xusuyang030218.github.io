@@ -1,0 +1,116 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+---
+
+<article class={`project-row tone-${project.tone} reveal`}>
+  <a class="project-link" href={`/projects/${project.slug}/`} aria-label={`查看项目：${project.title}`}>
+    <div class="project-index mono">{String(index + 1).padStart(2, '0')}</div>
+    <div class="project-main">
+      <div class="project-meta mono">
+        <span>{project.categoryLabel}</span>
+        <span>{project.period}</span>
+      </div>
+      <h3>{project.title}</h3>
+      <p>{project.summary}</p>
+      <div class="tags" aria-label="技术栈">
+        {project.stack.slice(0, 5).map((item) => <span class="tag">{item}</span>)}
+      </div>
+    </div>
+    <div class="project-proof">
+      {project.highlights.slice(0, 3).map((item) => <span>{item}</span>)}
+    </div>
+    <span class="project-arrow" aria-hidden="true">↗</span>
+  </a>
+</article>
+
+<style>
+  .project-row {
+    border-top: 1px solid var(--line);
+  }
+
+  .project-row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-link {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) minmax(12rem, 0.45fr) 2rem;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+    padding-block: clamp(1.75rem, 4vw, 3rem);
+    text-decoration: none;
+    transition: background-color 180ms ease, padding 180ms ease;
+  }
+
+  .project-link:hover {
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    padding-inline: 1rem;
+  }
+
+  .project-index {
+    color: var(--accent-dark);
+    font-size: 0.8rem;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.2rem;
+    color: var(--ink-soft);
+    font-size: 0.72rem;
+  }
+
+  h3 {
+    margin: 0.45rem 0 0.8rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--ink-soft);
+  }
+
+  .project-proof {
+    display: grid;
+    gap: 0.7rem;
+    padding-top: 1.45rem;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+  }
+
+  .project-proof span {
+    border-left: 2px solid var(--accent);
+    padding-left: 0.7rem;
+  }
+
+  .project-arrow {
+    color: var(--accent-dark);
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 800px) {
+    .project-link {
+      grid-template-columns: 2rem minmax(0, 1fr) 1.5rem;
+    }
+
+    .project-proof {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .project-link {
+      grid-template-columns: 1fr 1.5rem;
+    }
+
+    .project-index {
+      display: none;
+    }
+  }
+</style>

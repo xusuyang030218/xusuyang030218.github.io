@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectRow from '../../components/ProjectRow.astro';
+import { projects, categoryLabels, type ProjectCategory } from '../../data/projects';
+
+const categories = Object.entries(categoryLabels) as [ProjectCategory, string][];
+---
+
+<BaseLayout title="项目" description="徐苏洋的项目归档，涵盖 DTS 前端重构、AI Agent、RAG、Java 全栈、IoT 与自研开发者工具。">
+  <header class="archive-hero container">
+    <p class="kicker">Project Archive</p>
+    <h1>项目归档</h1>
+    <p class="lede">按问题、决策与证据组织项目。精确指标未完成原始报告核验时，会明确标记边界。</p>
+  </header>
+
+  <nav class="filter-bar container" aria-label="项目分类">
+    <button type="button" data-filter="all" aria-pressed="true">全部 <span>{projects.length}</span></button>
+    {categories.map(([key, label]) => (
+      <button type="button" data-filter={key} aria-pressed="false">{label} <span>{projects.filter((project) => project.category === key).length}</span></button>
+    ))}
+  </nav>
+
+  <section class="container archive-list" aria-live="polite">
+    {projects.map((project, index) => (
+      <div data-category={project.category}>
+        <ProjectRow project={project} index={index} />
+      </div>
+    ))}
+    <p class="empty-state" hidden>当前分类暂无项目。</p>
+  </section>
+
+  <section class="section container archive-note">
+    <h2>展示原则</h2>
+    <div>
+      <p>企业项目只公开可授权的名称、职责、技术路径与脱敏成果，不展示客户数据、内部地址和源代码。</p>
+      <p>公开仓库会标出链接。仍在补证据的性能数字不会被包装成正式结论。</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('[data-category]'));
+  const empty = document.querySelector<HTMLElement>('.empty-state');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter ?? 'all';
+      let visible = 0;
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      rows.forEach((row) => {
+        const show = filter === 'all' || row.dataset.category === filter;
+        row.hidden = !show;
+        if (show) visible += 1;
+      });
+      if (empty) empty.hidden = visible > 0;
+    });
+  });
+</script>
+
+<style>
+  .archive-hero {
+    display: grid;
+    min-height: 55dvh;
+    align-content: end;
+    padding-block: clamp(5rem, 12vw, 9rem) 4rem;
+  }
+
+  .archive-hero h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    border-block: 1px solid var(--ink);
+    padding-block: 1rem;
+  }
+
+  .filter-bar button {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    padding: 0.6rem 0.75rem;
+    font: 700 0.78rem var(--mono);
+    cursor: pointer;
+  }
+
+  .filter-bar button:hover,
+  .filter-bar button[aria-pressed="true"] {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  .filter-bar span {
+    margin-left: 0.4rem;
+    color: var(--accent);
+  }
+
+  .archive-list {
+    padding-block: 3rem;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .empty-state {
+    border: 1px solid var(--line);
+    padding: 2rem;
+    color: var(--ink-soft);
+  }
+
+  .archive-note {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .archive-note h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .archive-note div {
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 700px) {
+    .archive-hero {
+      min-height: auto;
+    }
+
+    .archive-note {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
