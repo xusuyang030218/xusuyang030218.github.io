@@ -7,24 +7,19 @@ interface Props {
 }
 
 const { evidence, projectTitle } = Astro.props;
+const hasVideo = (item: { videoMp4?: string; videoWebm?: string }) => Boolean(item.videoMp4 || item.videoWebm);
 ---
 
-<section class="evidence-dossier container" aria-labelledby="evidence-title">
-  <header class="dossier-header">
-    <div>
-      <p class="kicker">实证存照</p>
-      <h2 id="evidence-title">证据卷宗</h2>
-    </div>
-    <div class="verification-stamp">
-      <span class="mono">VERIFICATION</span>
-      <strong>{evidence.verification}</strong>
-    </div>
+<section class="showcase container" aria-labelledby="showcase-title">
+  <header class="showcase-header">
+    <h2 id="showcase-title">界面与演示</h2>
+    <span class="scope-tag">{evidence.verification}</span>
   </header>
 
-  <p class="verification-note">{evidence.verificationNote}</p>
+  <p class="scope-note">{evidence.verificationNote}</p>
 
   {evidence.screenshots && evidence.screenshots.length > 0 && (
-    <div class="screenshot-gallery reveal" aria-label="项目截图证据">
+    <div class="gallery reveal" aria-label={`${projectTitle} 界面截图`}>
       {evidence.screenshots.map((shot) => (
         <figure class:list={['shot', shot.span ? 'shot-span' : '']}>
           <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" width="1600" height="900" />
@@ -34,34 +29,37 @@ const { evidence, projectTitle } = Astro.props;
     </div>
   )}
 
-  {evidence.media && evidence.media.length > 0 && evidence.media.map((mediaItem) => (
-    <figure class="evidence-media reveal">
-      {mediaItem.videoWebm ? (
-        <video controls playsinline preload="metadata" poster={mediaItem.poster} aria-label={`${projectTitle} 演示视频`}>
-          {mediaItem.videoMp4 && <source src={mediaItem.videoMp4} type="video/mp4" />}
-          <source src={mediaItem.videoWebm} type="video/webm" />
-          当前浏览器不能播放视频，请阅读下方演示文字说明。
-        </video>
-      ) : (
-        <img src={mediaItem.poster} width="1440" height="900" loading="lazy" alt={mediaItem.caption} />
-      )}
-      <figcaption>
-        <strong>{mediaItem.caption}</strong>
-        <details>
-          <summary>视频文字说明</summary>
-          <ol>{mediaItem.transcript.map((line) => <li>{line}</li>)}</ol>
-        </details>
-      </figcaption>
-    </figure>
-  ))}
+  {evidence.media && evidence.media.length > 0 && (
+    <div class="media-list">
+      {evidence.media.map((mediaItem) => (
+        <figure class="media-card reveal">
+          {hasVideo(mediaItem) ? (
+            <video controls playsinline preload="metadata" poster={mediaItem.poster} aria-label={`${projectTitle} 演示视频`}>
+              {mediaItem.videoWebm && <source src={mediaItem.videoWebm} type="video/webm" />}
+              {mediaItem.videoMp4 && <source src={mediaItem.videoMp4} type="video/mp4" />}
+              当前浏览器不能播放视频，可以看右侧的文字说明。
+            </video>
+          ) : (
+            <img src={mediaItem.poster} width="1440" height="900" loading="lazy" alt={mediaItem.caption} />
+          )}
+          <figcaption>
+            <strong>{mediaItem.caption}</strong>
+            <details>
+              <summary>视频里发生了什么</summary>
+              <ol>{mediaItem.transcript.map((line) => <li>{line}</li>)}</ol>
+            </details>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  )}
 
   {evidence.links && evidence.links.length > 0 && (
-    <div class="source-links reveal">
-      <h3>可核之证</h3>
-      <div class="source-grid">
+    <div class="block reveal">
+      <h3>相关链接</h3>
+      <div class="link-grid">
         {evidence.links.map((link) => (
           <a href={link.url} rel="noopener">
-            <span class="mono">{link.kind.toUpperCase()}</span>
             <strong>{link.label}</strong>
             <small>{link.note}</small>
             <b aria-hidden="true">↗</b>
@@ -72,15 +70,17 @@ const { evidence, projectTitle } = Astro.props;
   )}
 
   {evidence.commits.length > 0 && (
-    <div class="commit-ledger reveal">
-      <h3>提交之迹</h3>
-      <div class="commit-table" role="table" aria-label={`${projectTitle} 提交证据`}>
+    <div class="block reveal">
+      <h3>提交记录</h3>
+      <div class="commit-table" role="table" aria-label={`${projectTitle} 提交记录`}>
         {evidence.commits.map((commit) => (
           <div class="commit-row" role="row">
             <time role="cell">{commit.date}</time>
             <code role="cell">{commit.hash}</code>
             <div role="cell"><strong>{commit.subject}</strong>{commit.stat && <small>{commit.stat}</small>}</div>
-            {commit.url ? <a href={commit.url} rel="noopener" aria-label={`打开提交 ${commit.hash}`}>打开 ↗</a> : <span class="private-mark mono">INTERNAL</span>}
+            {commit.url
+              ? <a href={commit.url} rel="noopener" aria-label={`打开提交 ${commit.hash}`}>打开 ↗</a>
+              : <span class="private-mark">内部仓库</span>}
           </div>
         ))}
       </div>
@@ -88,15 +88,15 @@ const { evidence, projectTitle } = Astro.props;
   )}
 
   {evidence.code && evidence.code.length > 0 && (
-    <div class="code-evidence">
+    <div class="code-list">
       {evidence.code.map((item) => (
-        <article class="code-case reveal">
+        <article class="code-card reveal">
           <header>
             <div>
-              <span class="mono">{item.language}</span>
+              <span class="lang">{item.language}</span>
               <h3>{item.title}</h3>
             </div>
-            {item.sourceUrl && <a href={item.sourceUrl} rel="noopener">查看固定源码 ↗</a>}
+            {item.sourceUrl && <a href={item.sourceUrl} rel="noopener">查看源码 ↗</a>}
           </header>
           <div class="file-bar"><code>{item.file}</code><span>{item.lines}</span></div>
           <pre tabindex="0"><code>{item.code}</code></pre>
@@ -108,58 +108,48 @@ const { evidence, projectTitle } = Astro.props;
 </section>
 
 <style>
-  .evidence-dossier {
+  .showcase {
     padding-block: var(--section);
     border-top: 1px solid var(--line);
   }
 
-  .dossier-header {
+  .showcase-header {
     display: flex;
-    align-items: end;
+    flex-wrap: wrap;
+    align-items: baseline;
     justify-content: space-between;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
   }
 
-  .dossier-header h2 {
+  .showcase-header h2 {
     margin-bottom: 0;
+    font-size: clamp(2rem, 4vw, 3.2rem);
   }
 
-  .verification-stamp {
-    display: grid;
-    border: 1px solid var(--accent);
-    border-radius: var(--radius);
+  .scope-tag {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
     background: var(--accent-soft);
-    padding: 0.7rem 1rem;
-    color: var(--ink);
-  }
-
-  .verification-stamp span {
+    padding: 0.3rem 0.8rem;
     color: var(--accent);
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+    font-weight: 700;
   }
 
-  .verification-stamp strong {
-    font-size: 0.9rem;
-    font-weight: 800;
-  }
-
-  .verification-note {
-    max-width: 56rem;
-    margin-bottom: 3rem;
-    border-left: 2px solid var(--accent);
-    padding-left: 1rem;
+  .scope-note {
+    max-width: 52rem;
+    margin-bottom: 3.5rem;
     color: var(--ink-soft);
+    font-size: 1rem;
     font-weight: 500;
   }
 
-  .screenshot-gallery {
+  .gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
   }
 
   .shot {
@@ -184,47 +174,43 @@ const { evidence, projectTitle } = Astro.props;
   }
 
   .shot figcaption {
-    padding: 0.7rem 1rem;
+    padding: 0.75rem 1rem;
     border-top: 1px solid var(--line);
-    font-size: 0.85rem;
-    color: var(--ink);
-    font-weight: 600;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    font-weight: 500;
   }
 
-  @media (max-width: 760px) {
-    .screenshot-gallery {
-      grid-template-columns: 1fr;
-    }
-
-    .shot-span {
-      grid-column: auto;
-    }
+  .media-list {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 4rem;
   }
 
-  .evidence-media {
+  .media-card {
     display: grid;
     grid-template-columns: minmax(0, 1.5fr) minmax(15rem, 0.5fr);
-    margin: 0 0 5rem;
+    margin: 0;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: var(--surface-2);
+    background: var(--surface);
     color: var(--ink);
     overflow: hidden;
   }
 
-  .evidence-media video,
-  .evidence-media img {
+  .media-card video,
+  .media-card img {
     width: 100%;
     height: 100%;
-    min-height: 22rem;
+    min-height: 20rem;
     object-fit: cover;
     background: var(--surface-2);
   }
 
-  .evidence-media figcaption {
+  .media-card figcaption {
     display: grid;
     align-content: space-between;
-    gap: 2rem;
+    gap: 1.5rem;
     border-left: 1px solid var(--line);
     padding: 1.3rem;
   }
@@ -236,37 +222,36 @@ const { evidence, projectTitle } = Astro.props;
   summary {
     color: var(--accent);
     cursor: pointer;
-    font-family: var(--mono);
-    font-weight: 800;
+    font-weight: 700;
   }
 
   details ol {
+    margin-top: 0.6rem;
     padding-left: 1.2rem;
     color: var(--ink-soft);
+    font-weight: 500;
   }
 
-  .source-links,
-  .commit-ledger {
-    margin-bottom: 5rem;
+  .block {
+    margin-bottom: 4rem;
   }
 
-  .source-links > h3,
-  .commit-ledger > h3 {
-    margin-bottom: 1.5rem;
-    font-size: clamp(1.7rem, 3vw, 2.7rem);
+  .block > h3 {
+    margin-bottom: 1.2rem;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
   }
 
-  .source-grid {
+  .link-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  .source-grid a {
+  .link-grid a {
     position: relative;
     display: grid;
-    min-height: 10rem;
-    gap: 0.5rem;
+    align-content: start;
+    gap: 0.4rem;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface);
@@ -275,28 +260,22 @@ const { evidence, projectTitle } = Astro.props;
     transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 200ms, background-color 200ms;
   }
 
-  .source-grid a:hover {
+  .link-grid a:hover {
     transform: translateY(-3px);
     border-color: var(--accent);
     background: var(--surface-2);
   }
 
-  .source-grid span {
-    color: var(--accent);
-    font-size: 0.65rem;
-    font-weight: 800;
-  }
-
-  .source-grid small {
+  .link-grid small {
     color: var(--ink-soft);
     font-weight: 500;
   }
 
-  .source-grid b {
+  .link-grid b {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
   }
 
   .commit-table {
@@ -309,19 +288,21 @@ const { evidence, projectTitle } = Astro.props;
     gap: 1rem;
     align-items: start;
     border-bottom: 1px solid var(--line);
-    padding: 1rem;
+    padding: 0.9rem 1rem;
     background: var(--surface);
-  }
-
-  .commit-row:nth-child(odd) {
-    background: var(--accent-soft);
   }
 
   .commit-row time,
   .commit-row code,
   .commit-row a,
   .private-mark {
-    font: 700 0.72rem var(--mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+
+  .commit-row time,
+  .commit-row code {
+    font-family: var(--mono);
   }
 
   .commit-row code {
@@ -344,14 +325,15 @@ const { evidence, projectTitle } = Astro.props;
 
   .private-mark {
     color: var(--ink-faint);
+    font-weight: 500;
   }
 
-  .code-evidence {
+  .code-list {
     display: grid;
-    gap: 4rem;
+    gap: 3rem;
   }
 
-  .code-case {
+  .code-card {
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface);
@@ -359,31 +341,33 @@ const { evidence, projectTitle } = Astro.props;
     overflow: hidden;
   }
 
-  .code-case > header {
+  .code-card > header {
     display: flex;
     align-items: end;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.2rem;
-    background: var(--accent);
-    color: var(--accent-ink);
+    border-bottom: 1px solid var(--line);
+    padding: 1.1rem 1.2rem;
+    background: var(--surface-2);
   }
 
-  .code-case > header span {
-    font-size: 0.66rem;
+  .code-card .lang {
+    color: var(--accent);
+    font-size: 0.68rem;
     font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  .code-case h3 {
+  .code-card h3 {
     margin: 0.35rem 0 0;
-    font-size: clamp(1.25rem, 2vw, 1.8rem);
-    color: var(--accent-ink);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
   }
 
-  .code-case > header a {
-    color: var(--accent-ink);
-    font: 800 0.72rem var(--mono);
+  .code-card > header a {
+    color: var(--accent);
+    font-size: 0.76rem;
+    font-weight: 700;
     text-decoration: none;
   }
 
@@ -392,51 +376,55 @@ const { evidence, projectTitle } = Astro.props;
     justify-content: space-between;
     gap: 1rem;
     border-bottom: 1px solid var(--line);
-    padding: 0.65rem 1.2rem;
-    color: var(--ink-soft);
-    font: 700 0.68rem var(--mono);
+    padding: 0.6rem 1.2rem;
+    color: var(--ink-faint);
+    font: 600 0.7rem var(--mono);
     overflow-wrap: anywhere;
   }
 
   pre {
     margin: 0;
     overflow-x: auto;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: clamp(1rem, 3vw, 1.8rem);
     background: var(--code-bg);
     color: var(--code-ink);
     font: 0.78rem/1.7 var(--mono);
     tab-size: 2;
   }
 
-  .code-case > p {
+  .code-card > p {
     max-width: none;
     margin: 0;
     border-top: 1px solid var(--line);
-    padding: 1.2rem;
+    padding: 1.1rem 1.2rem;
     color: var(--ink-soft);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 500;
   }
 
   @media (max-width: 760px) {
-    .dossier-header,
-    .code-case > header {
+    .gallery,
+    .link-grid,
+    .media-card {
+      grid-template-columns: 1fr;
+    }
+
+    .shot-span {
+      grid-column: auto;
+    }
+
+    .code-card > header {
       align-items: flex-start;
       flex-direction: column;
     }
 
-    .evidence-media,
-    .source-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .evidence-media figcaption {
+    .media-card figcaption {
       border-top: 1px solid var(--line);
       border-left: 0;
     }
 
-    .evidence-media video,
-    .evidence-media img {
+    .media-card video,
+    .media-card img {
       min-height: auto;
     }
 

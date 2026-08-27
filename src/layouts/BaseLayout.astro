@@ -17,7 +17,7 @@ interface Props {
 const {
   title,
   description,
-  image = '/evidence/dts-evidence.webp',
+  image = '/evidence/nexus-dashboard.webp',
   imageWidth = 1440,
   imageHeight = 900,
   schema = []
@@ -35,7 +35,7 @@ const person = {
   name: '徐苏洋',
   alternateName: 'Xu Suyang',
   url: 'https://xusuyang030218.github.io',
-  image: new URL('/evidence/dts-evidence.webp', Astro.site).href,
+  image: new URL('/evidence/nexus-dashboard.webp', Astro.site).href,
   email: '2307456010@qq.com',
   sameAs: ['https://github.com/xusuyang030218', 'https://gitee.com/anhuiwuhu_xsy'],
   jobTitle: '软件开发工程师',
@@ -77,12 +77,12 @@ const person = {
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
-    <meta property="og:image:alt" content={`${title} 项目证据截图`} />
+    <meta property="og:image:alt" content={`${title} 项目界面截图`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-    <meta name="twitter:image:alt" content={`${title} 项目证据截图`} />
+    <meta name="twitter:image:alt" content={`${title} 项目界面截图`} />
     <title>{fullTitle}</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(person)}></script>
     {schema.map((node) => (

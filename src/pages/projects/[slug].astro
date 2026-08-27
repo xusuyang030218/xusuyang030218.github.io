@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import EvidenceDossier from '../../components/EvidenceDossier.astro';
+import ProjectShowcase from '../../components/ProjectShowcase.astro';
 import { projects, type Project } from '../../data/projects';
 import { evidenceBySlug } from '../../data/evidence';
 
@@ -18,7 +18,7 @@ interface Props {
 const { project } = Astro.props;
 const currentIndex = projects.findIndex((item) => item.slug === project.slug);
 const nextProject = projects[(currentIndex + 1) % projects.length];
-const dossier = evidenceBySlug[project.slug];
+const showcase = evidenceBySlug[project.slug];
 
 const projectSchema = {
   '@context': 'https://schema.org',
@@ -72,7 +72,7 @@ const breadcrumbSchema = {
           <dl>
             <div><dt>时间</dt><dd>{project.period}</dd></div>
             <div><dt>角色</dt><dd>{project.role}</dd></div>
-            <div><dt>证据</dt><dd>{project.evidence[0]}</dd></div>
+            <div><dt>亮点</dt><dd>{project.evidence[0]}</dd></div>
           </dl>
           <div class="tags">
             {project.stack.map((item) => <span class="tag">{item}</span>)}
@@ -85,9 +85,9 @@ const breadcrumbSchema = {
       <p>{project.statement}</p>
     </blockquote>
 
-    <section class="container evidence-strip reveal" aria-label="项目证据">
-      {project.evidence.map((item, index) => (
-        <div><b class="mono">E{String(index + 1).padStart(2, '0')}</b><span>{item}</span></div>
+    <section class="container fact-strip reveal" aria-label="项目关键信息">
+      {project.evidence.map((item) => (
+        <div><span>{item}</span></div>
       ))}
     </section>
 
@@ -112,10 +112,20 @@ const breadcrumbSchema = {
       ))}
     </div>
 
-    {dossier && <EvidenceDossier evidence={dossier} projectTitle={project.title} />}
+    {project.architecture && (
+      <section class="container architecture reveal" aria-label="系统架构">
+        <h2>系统架构</h2>
+        <figure>
+          <img src={project.architecture.src} alt={project.architecture.alt} loading="lazy" decoding="async" />
+          <figcaption>{project.architecture.caption}</figcaption>
+        </figure>
+      </section>
+    )}
+
+    {showcase && <ProjectShowcase evidence={showcase} projectTitle={project.title} />}
 
     <section class="container highlights reveal">
-      <h2>要点拾萃</h2>
+      <h2>核心亮点</h2>
       <div>
         {project.highlights.map((item) => <p>{item}</p>)}
       </div>
@@ -236,7 +246,7 @@ const breadcrumbSchema = {
     color: var(--accent);
   }
 
-  .evidence-strip {
+  .fact-strip {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -244,25 +254,51 @@ const breadcrumbSchema = {
     padding-block: 1rem;
   }
 
-  .evidence-strip div {
+  .fact-strip div {
     display: grid;
-    min-height: 9rem;
-    align-content: space-between;
-    gap: 1rem;
+    min-height: 6rem;
+    align-content: center;
     border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
     border-radius: var(--radius);
     background: var(--surface);
     padding: 1rem;
   }
 
-  .evidence-strip b {
-    color: var(--accent);
-    font-size: 0.72rem;
-    font-weight: 800;
+  .fact-strip span {
+    font-weight: 600;
   }
 
-  .evidence-strip span {
-    font-weight: 700;
+  .architecture {
+    border-top: 1px solid var(--line);
+    padding-block: var(--section);
+  }
+
+  .architecture h2 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  .architecture figure {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .architecture img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .architecture figcaption {
+    border-top: 1px solid var(--line);
+    padding: 0.9rem 1.2rem;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 
   .case-body {
@@ -397,13 +433,13 @@ const breadcrumbSchema = {
       grid-template-columns: 1fr;
     }
 
-    .evidence-strip,
+    .fact-strip,
     .highlights div {
       grid-template-columns: 1fr;
     }
 
-    .evidence-strip div {
-      min-height: 6rem;
+    .fact-strip div {
+      min-height: 4.5rem;
     }
 
     .next-project a {
