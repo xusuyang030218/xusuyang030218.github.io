@@ -5,3 +5,6 @@ dist/
 *.log
 .evidence-source/
 .video-raw/
+test-results/
+playwright-report/
+playwright/.cache/
