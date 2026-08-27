@@ -12,7 +12,7 @@ const { evidence, projectTitle } = Astro.props;
 <section class="evidence-dossier container" aria-labelledby="evidence-title">
   <header class="dossier-header">
     <div>
-      <p class="kicker">Evidence Dossier</p>
+      <p class="kicker">实证存照</p>
       <h2 id="evidence-title">证据卷宗</h2>
     </div>
     <div class="verification-stamp">
@@ -48,7 +48,7 @@ const { evidence, projectTitle } = Astro.props;
       <figcaption>
         <strong>{mediaItem.caption}</strong>
         <details>
-          <summary>查看视频文字说明</summary>
+          <summary>视频文字说明</summary>
           <ol>{mediaItem.transcript.map((line) => <li>{line}</li>)}</ol>
         </details>
       </figcaption>
@@ -57,7 +57,7 @@ const { evidence, projectTitle } = Astro.props;
 
   {evidence.links && evidence.links.length > 0 && (
     <div class="source-links reveal">
-      <h3>可点击公开证据</h3>
+      <h3>可核之证</h3>
       <div class="source-grid">
         {evidence.links.map((link) => (
           <a href={link.url} rel="noopener">
@@ -73,7 +73,7 @@ const { evidence, projectTitle } = Astro.props;
 
   {evidence.commits.length > 0 && (
     <div class="commit-ledger reveal">
-      <h3>提交账本</h3>
+      <h3>提交之迹</h3>
       <div class="commit-table" role="table" aria-label={`${projectTitle} 提交证据`}>
         {evidence.commits.map((commit) => (
           <div class="commit-row" role="row">

@@ -82,7 +82,7 @@ const dossier = evidenceBySlug[project.slug];
     {dossier && <EvidenceDossier evidence={dossier} projectTitle={project.title} />}
 
     <section class="container highlights reveal">
-      <h2>项目摘记</h2>
+      <h2>要点拾萃</h2>
       <div>
         {project.highlights.map((item) => <p>{item}</p>)}
       </div>
@@ -90,7 +90,7 @@ const dossier = evidenceBySlug[project.slug];
 
     <nav class="next-project" aria-label="下一个项目">
       <a class="container" href={`/projects/${nextProject.slug}/`}>
-        <span class="mono">下一个项目</span>
+        <span class="mono">下一篇</span>
         <strong>{nextProject.title}</strong>
         <b aria-hidden="true">↗</b>
       </a>

@@ -9,7 +9,7 @@ interface Props {
   image?: string;
 }
 
-const { title, description, image = '/avatar.png' } = Astro.props;
+const { title, description, image = '/portrait.webp' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site);
 const fullTitle = title === '徐苏洋' ? title : `${title} | 徐苏洋`;

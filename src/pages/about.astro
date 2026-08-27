@@ -5,18 +5,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="关于" description="关于徐苏洋：软件工程、LLM 应用、Java 全栈、企业前端重构与 Agent Skills 实践。">
   <header class="about-hero container">
     <div>
-      <p class="kicker">About</p>
+      <p class="kicker">关于</p>
       <h1>软件工程学生，<br />也是证据驱动的开发者。</h1>
     </div>
     <div class="about-intro">
-      <img src="/avatar.png" width="640" height="640" alt="徐苏洋的公开头像" />
+      <img src="/portrait.webp" width="720" height="720" alt="徐苏洋的证件照头像" />
       <p>我关注大模型应用如何进入真实系统，也关心遗留代码、团队协作、测试和部署这些不够耀眼却决定交付质量的部分。</p>
     </div>
   </header>
 
   <section class="section container profile-grid reveal">
     <div class="profile-title">
-      <p class="kicker">Profile</p>
+      <p class="kicker">个人档案</p>
       <h2>徐苏洋</h2>
       <p class="mono">2027 届 · 软件工程</p>
     </div>
@@ -33,7 +33,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section skills-section">
     <div class="container">
-      <p class="kicker">Capability Map</p>
+      <p class="kicker">能力版图</p>
       <div class="skill-columns">
         <article>
           <h2>01</h2>
@@ -61,7 +61,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section container timeline reveal">
     <div>
-      <p class="kicker">Experience</p>
+      <p class="kicker">履历</p>
       <h2>经历</h2>
     </div>
     <ol>
@@ -79,7 +79,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="section honors-section">
     <div class="container honors-grid">
       <div>
-        <p class="kicker">Selected Honors</p>
+        <p class="kicker">荣誉撷英</p>
         <h2>把竞赛能力转化为工程判断。</h2>
         <p class="lede">学校系统记录学科竞赛获奖 35 项次，其中国际级 1 项、国家级 13 项、省级 21 项。</p>
       </div>
@@ -90,15 +90,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <p><b>2025</b><span>全球校园人工智能算法精英大赛二等奖</span></p>
         <p><b>2025</b><span>中软国际卓越杯大数据挑战赛一等奖</span></p>
       </div>
-    </div>
-  </section>
-
-  <section class="section container principles reveal">
-    <p class="kicker">Principles</p>
-    <div>
-      <blockquote>不把调研写成实现。</blockquote>
-      <blockquote>不把仓库总量写成个人贡献。</blockquote>
-      <blockquote>不让 AI 替人承担最终判断。</blockquote>
     </div>
   </section>
 </BaseLayout>
@@ -267,26 +258,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-  }
-
-  .principles blockquote {
-    margin: 0;
-    border: var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow);
-    padding: 1.2rem;
-    color: var(--ink);
-    font-size: clamp(1.3rem, 2.5vw, 2rem);
-    font-weight: 900;
-    line-height: 1.15;
-  }
-
-  .principles blockquote:nth-child(2) {
-    background: var(--blue-soft);
-  }
-
-  .principles blockquote:nth-child(3) {
-    background: var(--yellow);
   }
 
   @media (max-width: 800px) {
