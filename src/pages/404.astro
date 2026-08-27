@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="页面未找到" description="请求的页面不存在。返回徐苏洋个人成果站首页或项目归档。">
+  <section class="not-found container">
+    <div>
+      <p class="kicker">HTTP 404</p>
+      <h1>这一页<br />没有记录。</h1>
+    </div>
+    <div class="not-found-copy">
+      <p>链接可能已经变更，或项目仍在整理中。你可以返回首页，或继续浏览完整项目归档。</p>
+      <div class="actions">
+        <a class="button" href="/">返回首页</a>
+        <a class="button secondary" href="/projects/">浏览项目</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    min-height: calc(100dvh - 73px);
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: center;
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+
+  h1 {
+    max-width: 9ch;
+    margin-bottom: 0;
+  }
+
+  .not-found-copy {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.5rem;
+    color: var(--ink-soft);
+    font-size: 1.08rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 700px) {
+    .not-found {
+      min-height: auto;
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
