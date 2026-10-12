@@ -75,8 +75,8 @@ export const projects: Project[] = [
     summary: '在 Vue 2 遗留系统中推进版本升级、复杂问题修复与前端重构，建立从根因分析到回归打包的交付闭环。',
     statement: '不是把旧页面重新画一遍，而是在双设计器、图表与表格多链路并存的系统中恢复可预测性。',
     stack: ['Vue 2', 'Element UI', 'ECharts', 'bootstrapTable', 'JavaScript', 'Git'],
-    highlights: ['40+ 条可归属功能与修复提交', '筛选、导出、引用链路重构', '遗留组件边界问题治理'],
-    evidence: ['61 条个人作者提交', '去除 Merge 与打包后 47 条', '连续实习周报与 Git 历史交叉核验'],
+    highlights: ['40+ 条可归属功能与修复提交', '筛选、导出、引用链路重构', '完成度打假：自报 100%、实测 16%'],
+    evidence: ['61 条个人作者提交', '去除 Merge 与打包后 47 条', '连续实习周报与 Git 历史交叉核验', '机器生成的完成度仲裁记录'],
     sections: [
       {
         title: '项目背景',
@@ -100,6 +100,19 @@ export const projects: Project[] = [
         paragraphs: [
           '遗留系统改造中，能运行不等于可交付。每项问题先复现，再沿请求、状态、字段映射与组件生命周期逐层定位根因；涉及后端配合时，以接口与数据结构说明对齐方案。',
           '任何存在风险的修改都会重新评估，并准备可回退路径，确保每次改动都可解释、可验证、可回退。'
+        ]
+      },
+      {
+        title: '后续：AI 辅助的现代化迁移',
+        paragraphs: [
+          '同一套系统后来做了一轮 AI 辅助的现代化迁移尝试：由多个 AI 分身分别承担架构、前端、后端、测试与代码审计的角色，按批次交付，每批独立验证、独立可回退，并把验收断言与执行证据固化成可复跑的检查。',
+          '这轮工作里最有价值的一条结论来自一次打假——AI 自报迁移「100% 完成」，按文件级覆盖复查，实际只有 16%（234 / 1475 个 Java 文件）与 11%（16 / 143 个 Controller）。'
+        ],
+        items: [
+          '把「能不能算完成」从自然语言判断换成可复核的计数：按文件、Controller、Widget 分级统计覆盖率。',
+          '发现缺口后拆成一周的补齐批次，覆盖率提升到后端 68%、前端 60%。',
+          '沉淀出完成度仲裁：自报与实测不一致时输出「虚假完成」结论，并定位占位实现（空实现、TODO、硬编码假数据）的具体文件与行号。',
+          '所有通过或失败的结论都必须绑定原始证据（命令、退出码、耗时、输出摘要），没有证据的只能记为待验证。'
         ]
       },
       {
@@ -258,17 +271,17 @@ export const projects: Project[] = [
       alt: 'Refactor Compass 阶段流程图：起点评估、决策冻结、分批迁移、完成度量化与终局交付',
       caption: '十个阶段串成一条带退出条件的迁移路径，每一批都可以独立回退。'
     },
-    title: 'Refactor Compass 重构罗盘',
-    shortTitle: '重构罗盘',
+    title: 'Refactor Compass → RefactorKit 重构工具链',
+    shortTitle: '重构工具链',
     category: 'tooling',
-    categoryLabel: 'Agent Skill',
+    categoryLabel: 'Agent Skill 与插件',
     period: '2026',
     role: '设计与开发',
-    summary: '将遗留系统改造拆为可验证、可回退、可交接的阶段化流程，避免用代码量代替真实完成度。',
-    statement: '重构不是一次豪赌，而是一组带退出条件的工程实验。',
-    stack: ['Agent Skills', 'SDLC', 'ADR', 'DoD', '对抗式审查', '迁移审计'],
-    highlights: ['10 阶段迁移流程', '入口枚举与覆盖矩阵', '双 AI 独立复核'],
-    evidence: ['本地 v1.0.1', 'MIT License', '完整参考手册与模板'],
+    summary: '把遗留系统改造拆成可验证、可回退、可交接的阶段化流程，并从一份方法论 Skill 长成一个带审核点与底线机制的可安装插件。',
+    statement: '放开过程，守住结果——怎么用技能、要不要分身交给模型；能不能算完成交给代码。',
+    stack: ['Agent Skills', 'DSH 插件', 'Node.js ESM', 'ADR', 'DoD', '对抗式审查', '证据门控'],
+    highlights: ['10 阶段迁移流程', '13 个工具 · 审核点 CP0–CP6', '54 项自动化测试'],
+    evidence: ['GitHub / Gitee 公开仓库', 'v0.1.0 核心 + v0.2 面板', '验证记录含已知限制'],
     sections: [
       {
         title: '为什么做这个',
@@ -287,12 +300,24 @@ export const projects: Project[] = [
         ]
       },
       {
-        title: '交付形态',
+        title: '从 Skill 长成插件',
         paragraphs: [
-          'Skill 由入口说明、五份按需参考手册、模板集和 Agent 元信息组成。它不绑定某一个项目，目标是把个人的工程判断沉淀成可复用、可审查的执行协议。'
+          '同一套方法论后来做成了可安装的 DSH 插件 RefactorKit：核心层 18 个纯函数模块不依赖宿主，插件层提供 13 个工具、CP0–CP6 七个审核点和三个钩子（同步守卫、执行前审批、结果观察），另有五个视角卡供临时分身选用。'
+        ],
+        items: [
+          '底线由代码强制，而不是写在提示词里：关闭任务必须有证据，仲裁不接受虚报，高风险改动必须经过异源审查，写入范围与命令白名单受控。',
+          '检查强度按 diff 事实自动分级 L0–L2；`.vue` 一律至少 L1——无法可靠区分只改模板文本与改逻辑时，宁严勿松。',
+          '缺口匹配用四种依据（mapping / name / alias / path）而不是纯路径：DTS 实测纯路径匹配只得 0.1%（1/1187），按类名对应后约 15.6%，对应关系交人工核对。'
+        ]
+      },
+      {
+        title: '验证到什么程度',
+        paragraphs: [
+          '仓库提供 54 项自动化测试，分三层：核心层 27 项、插件层 15 项（用 DSH 安装目录里真实的 defineTool 编译全部 13 个工具 schema）、面板层 12 项。验证记录里同时写明已知限制：子智能体与真实模型的调用参数已按 DSH 源码核对并用伪造服务测试，真实模型调用仍需在安装后验证。'
         ]
       }
     ],
+    repository: 'https://github.com/xusuyang030218/refactor-kit',
     featured: true,
     tone: 'green'
   },
@@ -393,18 +418,32 @@ export const projects: Project[] = [
       alt: 'Agent Skills 工具集结构图：触发入口、Skill 集合、执行约定与产出物',
       caption: '每个 Skill 都是一套固定的触发条件、执行步骤和产出格式。'
     },
-    title: 'Agent Skills 工程工具集',
+    title: 'Agent Skills 与 DSH 插件工具集',
     shortTitle: 'Agent Skills',
     category: 'tooling',
     categoryLabel: '开发者工具',
     period: '2026',
     role: '设计与开发',
-    summary: '将代码检视、文档摄取、测试执行、Git 规范与周报汇总沉淀为可复用的 Agent 执行协议。',
-    statement: '好的 Skill 不替人做决定，而是让依据、步骤和边界可复用。',
-    stack: ['Agent Skills', 'Git', 'HTML Report', 'MarkItDown', 'E2E Testing', 'Automation'],
-    highlights: ['人工代码检视报告', '多格式文档摄取', '测试与协作自动化'],
-    evidence: ['GitHub 公开仓库', '本地完整 Skill 资产', '个人项目确认'],
+    summary: '一边把代码检视、文档摄取、测试执行沉淀为可复用的 Agent 执行协议，一边把它做成真正装得上、跑得起来的插件。',
+    statement: '好的工具不替人做决定，而是让依据、步骤和边界可复用。',
+    stack: ['Agent Skills', 'DSH 插件', 'TypeScript', 'Node.js', 'Git', 'HTML Report', 'MarkItDown', 'E2E Testing'],
+    highlights: ['自研 8 个 DSH 可安装插件', '3 个入选官方插件榜', '人工检视与文档摄取'],
+    evidence: ['GitHub 公开仓库', '链接固定到具体 commit', '本地完整 Skill 资产'],
     sections: [
+      {
+        title: '自研的 DSH 插件',
+        paragraphs: [
+          '围绕 DeepSeek Harness（DSH）的插件体系，独立开发并交付 8 个可安装插件，覆盖三类职责：观察层（会话轨迹可视化）、产出层（文件预览与在线编辑、代码上传改审评、零依赖文档解析）、协作层（Agent Teams 控制台、实例间私聊中继）。其中 3 个被官方插件榜 dsh-recommend 收录。',
+          '这些插件目前通过 GitHub 直接安装，尚未发布 npm 包，也没有版本 tag；收录与否以官方插件榜为准，不用 star 数当作成绩。'
+        ],
+        items: [
+          'dsh-session-viz：把会话日志解析成可搜索的事件索引，配三层渐进式查看器与轮环会话图。',
+          'dsh-preview-ui：工作区文件树 + 多格式预览 + 在线编辑与版本回滚。',
+          'dsh-code-workbench：代码上传 → AI 修改 / 审查 / 评测 → 下载 + diff + 评测报告。',
+          'dsh-doc-import：零外部依赖地把 md / docx / pdf / xlsx / pptx 解析为纯文本。',
+          'dsh-team-console：用 /team 命令启停与释放官方 Agent Teams 成员。'
+        ]
+      },
       {
         title: '包含哪些工具',
         items: [

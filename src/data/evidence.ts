@@ -171,7 +171,11 @@ export const evidenceBySlug: Record<string, ProjectEvidence> = {
   'refactor-compass': {
     verification: '开源可查',
     verificationNote:
-      '这是一套写给 AI Agent 用的重构方法论 Skill，以完整发行包形式留存，包含 SKILL.md、五份参考手册、模板和元信息。下面这段流程来自 v1.0.1 原文件。',
+      '起点是一套写给 AI Agent 用的重构方法论 Skill（SKILL.md + 五份参考手册 + 模板 + 元信息，v1.0.1），后来长成可安装的 DSH 插件 RefactorKit：核心层 18 个纯函数模块不依赖宿主，插件层提供 13 个工具、CP0–CP6 七个审核点与三个钩子，另有五个视角卡。仓库含 54 项自动化测试（核心 27 / 插件 15 / 面板 12）。下面这段流程来自 v1.0.1 原文件。',
+    links: [
+      { kind: 'repository', label: 'refactor-kit · GitHub', url: 'https://github.com/xusuyang030218/refactor-kit', note: '可安装的 DSH 插件，仓库内含实现说明与验证记录（含已知限制）' },
+      { kind: 'repository', label: 'refactor-kit · Gitee 镜像', url: 'https://gitee.com/anhuiwuhu_xsy/refactor-kit', note: '国内镜像' }
+    ],
     commits: [],
     code: [
       {

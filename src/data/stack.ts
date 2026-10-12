@@ -20,11 +20,11 @@ export const stackGroups: StackGroup[] = [
     title: '后端与服务',
     summary: '以 Spring Boot 为主的业务服务、持久层与中间件。',
     items: [
-      { name: 'Spring Boot', projects: ['NexusAgent', '灵犀会议室', '煤矿监管', '长耀健行'] },
+      { name: 'Spring Boot', projects: ['NexusAgent', '灵犀会议室', '矿智未来', '长耀健行'] },
       { name: 'MyBatis Plus', projects: ['灵犀会议室'] },
-      { name: 'MySQL', projects: ['灵犀会议室', '煤矿监管', '长耀健行'] },
+      { name: 'MySQL', projects: ['灵犀会议室', '矿智未来', '长耀健行'] },
       { name: 'Redis · Redisson', projects: ['灵犀会议室'] },
-      { name: 'Kafka', projects: ['煤矿监管'] },
+      { name: 'Kafka', projects: ['矿智未来'] },
       { name: 'Flyway', projects: ['NexusAgent'] },
       { name: 'FastAPI', projects: ['WorkBuddy'] }
     ]
@@ -58,7 +58,7 @@ export const stackGroups: StackGroup[] = [
     title: '视觉与设备',
     summary: '计算机视觉模型与机器人侧设备通信。',
     items: [
-      { name: 'YOLOv8', projects: ['煤矿监管'] },
+      { name: 'YOLOv8', projects: ['矿智未来'] },
       { name: 'YOLO11 Pose', projects: ['长耀健行'] },
       { name: 'ROS', projects: ['长耀健行'] }
     ]
@@ -67,21 +67,25 @@ export const stackGroups: StackGroup[] = [
     title: '工程与交付',
     summary: '容器化、部署、测试与协作规范。',
     items: [
-      { name: 'Docker · Docker Compose', projects: ['NexusAgent', '煤矿监管'] },
-      { name: 'Nginx', projects: ['煤矿监管'] },
+      { name: 'Docker · Docker Compose', projects: ['NexusAgent', '矿智未来'] },
+      { name: 'Nginx', projects: ['矿智未来'] },
       { name: 'Git', projects: ['DTS Dashboard', 'Agent Skills'] },
       { name: 'E2E Testing', projects: ['Agent Skills'] },
-      { name: 'RBAC 权限模型', projects: ['NexusAgent'] }
+      { name: 'RBAC 权限模型', projects: ['NexusAgent'] },
+      { name: 'DSH 插件工程', projects: ['重构工具链', 'Agent Skills'] }
     ]
   },
   {
     title: '方法与协议',
     summary: '把工程判断固化为可复用、可审查的执行协议。',
     items: [
-      { name: 'Agent Skills', projects: ['重构罗盘', 'Agent Skills'] },
-      { name: 'ADR 决策记录', projects: ['重构罗盘'] },
-      { name: 'DoD 完成定义', projects: ['重构罗盘'] },
-      { name: '对抗式审查', projects: ['重构罗盘'] },
+      { name: 'Agent Skills', projects: ['重构工具链', 'Agent Skills'] },
+      { name: 'ADR 决策记录', projects: ['重构工具链'] },
+      { name: 'DoD 完成定义', projects: ['重构工具链'] },
+      { name: '对抗式审查', projects: ['重构工具链'] },
+      { name: '证据门控', projects: ['重构工具链'] },
+      { name: '真相仲裁', projects: ['重构工具链'] },
+      { name: '风险分级 L0–L2', projects: ['重构工具链'] },
       { name: 'MarkItDown 文档摄取', projects: ['Agent Skills'] }
     ]
   }
