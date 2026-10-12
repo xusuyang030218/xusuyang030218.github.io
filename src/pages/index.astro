@@ -162,8 +162,22 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
           decoding="async"
         />
         <figcaption>
-          <span class="plugin-shot-name mono">dsh-code-workbench</span>
+          <span class="plugin-shot-name mono">dsh-code-workbench · diff</span>
           <span>改前 / 改后逐块对比，附变更说明与结构化评测。</span>
+        </figcaption>
+      </figure>
+      <figure class="plugin-shot">
+        <img
+          src="/evidence/plugins/code-workbench-report.webp"
+          width="1440"
+          height="900"
+          alt="dsh-code-workbench 的评测报告页：质量评分、问题列表与改进建议"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span class="plugin-shot-name mono">dsh-code-workbench · 评测报告</span>
+          <span>给出一份质量评分，列出问题与改进建议，而不是只说「改好了」。</span>
         </figcaption>
       </figure>
       <figure class="plugin-shot">
@@ -743,7 +757,8 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
 
   .plugin-shots {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* 2×2：截图数量为偶数时两列比三列更整齐，每张也能大一些 */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem;
     /* 三张截图原始比例不同（两张 16:10、一张竖版），用 start 让每张按自身比例排，
        不强行拉成等高——等高会在矮图底部留下可见的空框。 */
