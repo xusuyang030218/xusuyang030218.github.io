@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectRow from '../components/ProjectRow.astro';
 import { featuredProjects } from '../data/projects';
 import { stackGroups } from '../data/stack';
+import { plugins, pluginBoundaries } from '../data/plugins';
 import { notes } from '../data/notes';
 
 const recentNotes = [...notes].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
@@ -124,6 +125,93 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="section container plugins-section">
+    <div class="plugins-head reveal">
+      <p class="kicker">插件体系</p>
+      <h2>把工作方法写成工具，再让工具进入工作流。</h2>
+      <p class="lede">
+        围绕 DeepSeek Harness 自己写了 8 个可安装插件，其中 3 个被官方插件榜 dsh-recommend 收录。
+        下面三张是真实界面截图，不是示意图。
+      </p>
+    </div>
+
+    <div class="plugin-shots reveal">
+      <figure class="plugin-shot">
+        <img
+          src="/evidence/plugins/refactorkit-panel.webp"
+          width="618"
+          height="382"
+          alt="RefactorKit 插件面板：分别选择老系统只读目录与重构后保存目录，并提供探测与生成配置草稿"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span class="plugin-shot-name mono">refactorkit · 面板</span>
+          <span>老系统目录只读，插件会拦截对它的任何写入；探测后生成 refactorkit.yaml 与过程记录。</span>
+        </figcaption>
+      </figure>
+      <figure class="plugin-shot">
+        <img
+          src="/evidence/plugins/code-workbench-panel.webp"
+          width="1440"
+          height="900"
+          alt="dsh-code-workbench 界面：左右并排对比修改前后的代码，并给出变更说明"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span class="plugin-shot-name mono">dsh-code-workbench</span>
+          <span>改前 / 改后逐块对比，附变更说明与结构化评测。</span>
+        </figcaption>
+      </figure>
+      <figure class="plugin-shot">
+        <img
+          src="/evidence/plugins/dsh-chat-panel.webp"
+          width="906"
+          height="1019"
+          alt="dsh-chat 界面：DSH 实例之间的私聊窗口"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span class="plugin-shot-name mono">dsh-chat</span>
+          <span>DSH 实例之间私聊，消息走自建零依赖中继。</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="plugin-matrix reveal" data-stagger>
+      {plugins.map((plugin, index) => (
+        <article class="plugin-row reveal">
+          <span class="plugin-index mono">{String(index + 1).padStart(2, '0')}</span>
+          <div class="plugin-body">
+            <div class="plugin-title">
+              <span class="plugin-name mono">{plugin.name}</span>
+              <span class="plugin-layer">{plugin.layer}</span>
+              <span class="plugin-version mono">{plugin.version}</span>
+              {plugin.boardScore !== null && (
+                <span class="plugin-board mono">榜单 {plugin.boardScore.toFixed(4)}</span>
+              )}
+            </div>
+            <p class="plugin-capability">{plugin.capability}</p>
+            {plugin.note && <p class="plugin-note">{plugin.note}</p>}
+          </div>
+          {plugin.repo && (
+            <a class="plugin-repo mono" href={plugin.repo} rel="noopener noreferrer">
+              仓库 ↗
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <ul class="plugin-boundaries reveal">
+      {pluginBoundaries.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
   </section>
 
   <section class="section notes-band">
@@ -647,6 +735,172 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
     font-size: 0.68rem;
   }
 
+  /* Plugins — DSH 插件体系 */
+  .plugins-head {
+    max-width: 48rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .plugin-shots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    /* 三张截图原始比例不同（两张 16:10、一张竖版），用 start 让每张按自身比例排，
+       不强行拉成等高——等高会在矮图底部留下可见的空框。 */
+    align-items: start;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .plugin-shot {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: 2px solid var(--line);
+    background-color: var(--surface);
+    background-image: var(--surface-sheen);
+    box-shadow: var(--shadow);
+  }
+
+  .plugin-shot img {
+    display: block;
+    width: 100%;
+    /* 必须显式 height: auto，否则 HTML 的 height 属性会胜出，
+       把图片撑成属性里的像素高度（这里曾经撑到 1019px）。 */
+    height: auto;
+    border-bottom: 2px solid var(--line);
+    background: var(--surface-2);
+  }
+
+  .plugin-shot figcaption {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.95rem 1.1rem 1.15rem;
+  }
+
+  .plugin-shot-name {
+    color: var(--accent);
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .plugin-shot figcaption span:last-child {
+    color: var(--ink-soft);
+    font-size: 0.83rem;
+    line-height: 1.6;
+  }
+
+  .plugin-matrix {
+    border: 2px solid var(--line);
+    background-color: var(--surface);
+    background-image: var(--surface-sheen);
+    box-shadow: var(--shadow);
+  }
+
+  .plugin-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.4rem 1.1rem;
+    align-items: start;
+    border-top: 2px solid var(--line);
+    padding: 1.05rem 1.3rem;
+  }
+
+  .plugin-row:first-child {
+    border-top: 0;
+  }
+
+  .plugin-index {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 800;
+    line-height: 1.6;
+  }
+
+  .plugin-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.7rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .plugin-name {
+    font-size: 0.94rem;
+    font-weight: 800;
+  }
+
+  .plugin-layer {
+    border: 1px solid var(--line);
+    background: var(--highlight);
+    color: var(--highlight-ink);
+    padding: 0.08rem 0.42rem;
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .plugin-version,
+  .plugin-board {
+    color: var(--ink-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .plugin-board {
+    color: var(--accent);
+  }
+
+  .plugin-capability {
+    margin: 0;
+    font-size: 0.89rem;
+    line-height: 1.6;
+  }
+
+  .plugin-note {
+    margin: 0.3rem 0 0;
+    color: var(--ink-faint);
+    font-size: 0.77rem;
+    line-height: 1.55;
+  }
+
+  .plugin-repo {
+    align-self: center;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 1px;
+  }
+
+  .plugin-repo:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .plugin-boundaries {
+    display: grid;
+    gap: 0.5rem;
+    margin: clamp(1.5rem, 3vw, 2rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plugin-boundaries li {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--ink-faint);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .plugin-boundaries li::before {
+    content: "·";
+    position: absolute;
+    left: 0.3rem;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
   /* Notes band */
   .notes-band {
     border-block: 2px solid var(--line);
@@ -751,6 +1005,10 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .plugin-shots {
+      grid-template-columns: 1fr;
+    }
+
     .hero {
       min-height: auto;
     }
@@ -776,6 +1034,15 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
 
     .stack-summary {
       min-height: 0;
+    }
+
+    .plugin-row {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .plugin-repo {
+      grid-column: 2;
+      justify-self: start;
     }
 
     .stats-grid {
