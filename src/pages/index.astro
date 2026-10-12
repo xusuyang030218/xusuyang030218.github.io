@@ -225,6 +225,8 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
     color: var(--ink-soft);
     font-size: clamp(1.05rem, 1.8vw, 1.28rem);
     font-weight: 500;
+    /* 避免末行只剩一个短词（原先「落地的交付。」单独占一行） */
+    text-wrap: balance;
   }
 
   .hero-actions {
@@ -584,11 +586,17 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
 
   .stack-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    /* 6 张卡片固定 3 列：两行正好排满。
+       原先用 repeat(auto-fit, minmax(17rem, 1fr))，在 1180px 容器下会排出 4 列，
+       第二行只剩 2 张，右下角留出两个空洞。 */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
+    align-items: stretch;
   }
 
   .stack-card {
+    display: flex;
+    flex-direction: column;
     border: 2px solid var(--line);
     box-shadow: var(--shadow);
     background-color: var(--surface);
@@ -602,10 +610,14 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
   }
 
   .stack-summary {
+    /* 预留两行：让同一行卡片的条目列表从同一条基线开始，
+       否则摘要只有一行的卡片（如「视觉与设备」）会把列表顶上去。 */
+    min-height: calc(0.85rem * 1.55 * 2);
     margin-bottom: 1.1rem;
     color: var(--ink-faint);
     font-size: 0.85rem;
     line-height: 1.55;
+    text-wrap: pretty;
   }
 
   .stack-card ul {
@@ -619,6 +631,10 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
     gap: 0.15rem;
     border-top: 1px solid var(--line-soft);
     padding: 0.6rem 0;
+  }
+
+  .stack-card li:first-child {
+    border-top: 0;
   }
 
   .stack-name {
@@ -731,6 +747,10 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
       grid-template-columns: 1fr;
     }
 
+    .stack-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .hero {
       min-height: auto;
     }
@@ -750,6 +770,14 @@ const marqueeItems = ['LLM 应用', 'AI Agent', 'Java 全栈', '前端重构', '
   }
 
   @media (max-width: 680px) {
+    .stack-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stack-summary {
+      min-height: 0;
+    }
+
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
     }

@@ -239,6 +239,8 @@ small,
   color: var(--ink-soft);
   font-size: clamp(1.05rem, 1.7vw, 1.25rem);
   line-height: 1.7;
+  /* 避免末行只剩一两个词的孤字 */
+  text-wrap: pretty;
 }
 
 /* Buttons — bold, bordered, hard shadow */
